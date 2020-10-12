@@ -5,8 +5,12 @@ module.exports = {
   },
   purge: [],
   theme: {
-    extend: {},
+    extend: {
+
+    },
   },
   variants: {},
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/ui')
+  ],
 }

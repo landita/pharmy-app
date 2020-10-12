@@ -6,16 +6,17 @@ import {
   Link
 } from "react-router-dom";
 //import de componentes
+import NavbarComponent from '../components/navbar/navbar';
 import LoginComponent from "../components/login/login";
-import PacientesComponent from "../components/pacientes/pacientes";
+import PacientesComponent from "../components/pacientes/pagePacientes";
 
 const RouterLinks = () => {
     return(
         <Router>
             <Switch>
-                {/* imports del dashboard */}
-            </Switch>
-            <Switch>
+                <Route path="/" exact component={NavbarComponent}>
+                    
+                </Route>
                 <Route path="/login" component={LoginComponent} />
                 <Route path="/pacientes" component={PacientesComponent} />
             </Switch>

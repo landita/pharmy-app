@@ -33,6 +33,14 @@ const Pacientes = () => {
         e.preventDefault();
         //realizando llenado en la base de datos
         await db.firestore().collection('pacientes').add(formPaciente);
+        //limpiando los campos despues de guardar un registro
+        setformPaciente({
+            nombres: '',
+            apellidos: '',
+            edad: '',
+            telefono: '',
+            padecimiento: '',
+        })
     }
 
     //render de la funcion

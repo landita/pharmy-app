@@ -1,13 +1,13 @@
 import React, {Suspense} from 'react';
 import ReactDOM from 'react-dom';
 import {FirebaseAppProvider} from 'reactfire';
-import firebaseConfig from './config/firebase.config';
-import RouterLinks from './config/routes';
+import firebaseConfig from './firebase.config';
+import DashboardComponent from './components/dashboard';
 
 ReactDOM.render(
   <FirebaseAppProvider firebaseConfig={firebaseConfig}>
-    <Suspense>
-      <RouterLinks />
+    <Suspense fallback={<p>cargando datos</p>}>
+      <DashboardComponent />
     </Suspense>
   </FirebaseAppProvider>,
   document.getElementById('root')

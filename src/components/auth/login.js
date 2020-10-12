@@ -1,12 +1,13 @@
 import React, {useState} from 'react';
-import { useFirebaseApp } from 'reactfire';
-import 'firebase/firestore';
+import { useFirebaseApp, useUser } from 'reactfire';
+import 'firebase/auth';
 import '../../assets/dist.css';
 
 const LoginComponent = (props) => {
 
     //configuracion inicial
     const db = useFirebaseApp();
+    const user = useUser();
     const initFormValues = {email:'', password:''};
     const [emailError, passwordError] = '';
     const [formValues, setFormValues] = useState(initFormValues);
@@ -16,9 +17,9 @@ const LoginComponent = (props) => {
         const {name, value} = event.target;
         setFormValues({...formValues, [name]:value});
     };
-    const handleOnSubmit = (event) => {
+    const handleOnSubmit = async (event) => {
         event.preventDefault();
-        db.firestore().collection('usuarios').add(formValues);
+        await db.auth().signInWithEmailAndPassword(formValues.email, formValues.password);
     };
 
     return(
@@ -35,6 +36,7 @@ const LoginComponent = (props) => {
                         name="email"
                         className="py-1 px-5 rounded border shadow-sm"
                         placeholder="ingrese su email"
+                        required
                         onChange={handleInputOnChange}
                     />
                     <small className="block text-red-600">{emailError}</small>
@@ -45,6 +47,8 @@ const LoginComponent = (props) => {
                         type="password"
                         name="password"
                         className="py-1 px-5 rounded border shadow-sm"
+                        required
+                        minLength="6"
                         onChange={handleInputOnChange}
                     />
                     <small className="block text-red-600">{passwordError}</small>

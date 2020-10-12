@@ -1,10 +1,9 @@
 export default {
-    apiKey: "AIzaSyBibNDFIPbK_FCuDg9I9JP9vbVuotfwaJs",
-    authDomain: "proyecto-dps-db.firebaseapp.com",
-    databaseURL: "https://proyecto-dps-db.firebaseio.com",
-    projectId: "proyecto-dps-db",
-    storageBucket: "proyecto-dps-db.appspot.com",
-    messagingSenderId: "602807393470",
-    appId: "1:602807393470:web:54138281812f6df22c92ef",
-    measurementId: "G-NX2XGD5R7G"
+    apiKey: "AIzaSyDOfcMkthRhOovPQR2gt49TMt7Xb2gkw4I",
+    authDomain: "proyecto-dps-2efd5.firebaseapp.com",
+    databaseURL: "https://proyecto-dps-2efd5.firebaseio.com",
+    projectId: "proyecto-dps-2efd5",
+    storageBucket: "proyecto-dps-2efd5.appspot.com",
+    messagingSenderId: "682590852573",
+    appId: "1:682590852573:web:0ead034ef4bb6baee01234"
 };

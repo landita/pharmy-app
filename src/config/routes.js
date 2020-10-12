@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 //import de componentes
 import LoginComponent from "../components/login/login";
+import PacientesComponent from "../components/pacientes/pacientes";
 
 const RouterLinks = () => {
     return(
@@ -16,6 +17,7 @@ const RouterLinks = () => {
             </Switch>
             <Switch>
                 <Route path="/login" component={LoginComponent} />
+                <Route path="/pacientes" component={PacientesComponent} />
             </Switch>
         </Router>
     );

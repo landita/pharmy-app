@@ -6,7 +6,7 @@ import RouterLinks from './config/routes';
 
 ReactDOM.render(
   <FirebaseAppProvider firebaseConfig={firebaseConfig}>
-    <Suspense>
+    <Suspense fallback={<p>cargando datos</p>}>
       <RouterLinks />
     </Suspense>
   </FirebaseAppProvider>,

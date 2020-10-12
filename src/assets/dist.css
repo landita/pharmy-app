@@ -18800,6 +18800,81 @@ video {
   animation: bounce 1s infinite;
 }
 
+/* formulario */
+
+.form-container {
+  width: 100%;
+  max-width: 32rem
+}
+
+/* estilo para label en form*/
+
+.lbl {
+  display: block;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+  --text-opacity: 1;
+  color: #4a5568;
+  color: rgba(74, 85, 104, var(--text-opacity));
+  font-size: 0.75rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem
+}
+
+/* campos del form */
+
+.input-form {
+  -webkit-appearance: none;
+          appearance: none;
+  display: block;
+  width: 100%;
+  border-width: 1px;
+  border-radius: 0.25rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  margin-bottom: 0.75rem;
+  line-height: 1.25
+}
+
+/* grupos de input */
+
+.form-row {
+  display: flex;
+  flex-wrap: wrap
+}
+
+/* botones */
+
+.btn {
+  font-weight: 700;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  border-radius: 0.25rem;
+}
+
+/* azul */
+
+.btn-blue {
+  --bg-opacity: 1;
+  background-color: #4299e1;
+  background-color: rgba(66, 153, 225, var(--bg-opacity));
+  --text-opacity: 1;
+  color: #fff;
+  color: rgba(255, 255, 255, var(--text-opacity));
+}
+
+/* hover azul */
+
+.btn-blue:hover {
+  --bg-opacity: 1;
+  background-color: #2b6cb0;
+  background-color: rgba(43, 108, 176, var(--bg-opacity));
+}
+
 @media (min-width: 640px) {
   .sm\:container {
     width: 100%;

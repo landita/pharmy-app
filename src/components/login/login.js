@@ -7,12 +7,8 @@ const LoginComponent = (props) => {
 
     //configuracion inicial
     const db = useFirebaseApp();
-    const initFormValues = {
-        email:'',
-        emailError:'',
-        password:'',
-        passwordError:''
-    };
+    const initFormValues = {email:'', password:''};
+    const [emailError, passwordError] = '';
     const [formValues, setFormValues] = useState(initFormValues);
 
     //eventos
@@ -41,7 +37,7 @@ const LoginComponent = (props) => {
                         placeholder="ingrese su email"
                         onChange={handleInputOnChange}
                     />
-                    <small className="block text-red-600">{formValues.emailError}</small>
+                    <small className="block text-red-600">{emailError}</small>
                 </div>
                 <div className="mt-5">
                     <label className="block text-gray-800">password</label>
@@ -51,7 +47,7 @@ const LoginComponent = (props) => {
                         className="py-1 px-5 rounded border shadow-sm"
                         onChange={handleInputOnChange}
                     />
-                    <small className="block text-red-600">{formValues.passwordError}</small>
+                    <small className="block text-red-600">{passwordError}</small>
                 </div>
                 <button className="mt-5 bg-blue-600 py-2 px-16 rounded text-white">Iniciar sesion</button>
                 <p className="text-blue-600 mb-10">registrarse</p>

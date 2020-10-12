@@ -3,11 +3,11 @@ import React, { useState } from 'react';
 import 'firebase/firestore';
 //importando estilos
 import '../../assets/dist.css';
-import { useFirestore, useFirebaseApp } from 'reactfire';
+import { useFirebaseApp } from 'reactfire';
 
 //funcion de formulario pacientes
 const Pacientes = () => {
-    const db = useFirestore();
+    const db = useFirebaseApp();
     //manejando el estado
     //datos del paciente
     const [formPaciente, setformPaciente] = useState(
@@ -32,7 +32,7 @@ const Pacientes = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         //realizando llenado en la base de datos
-        await db.collection('pacientes').doc().set(formPaciente);
+        await db.firestore().collection('pacientes').add(formPaciente);
     }
 
     //render de la funcion

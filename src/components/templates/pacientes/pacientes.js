@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 //importando firebase
 import 'firebase/firestore';
 //importando estilos
-import '../../assets/dist.css';
+import '../../../assets/dist.css';
 import { useFirebaseApp } from 'reactfire';
 
 //funcion de formulario pacientes
@@ -45,7 +45,7 @@ const Pacientes = () => {
 
     //render de la funcion
     return(
-        <div className="py-10 px-10">
+        <div className="py-1 px-10">
             <form className="form-container" onSubmit={handleSubmit}>
                 <div className="flex flex-wrap -mx-3 mb-6">
                     <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
@@ -57,6 +57,7 @@ const Pacientes = () => {
                             value={formPaciente.nombres.value}
                             onChange={handleChange}
                         />
+                        <small className="block text-red-600"></small>
                     </div>
                     <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                         <label className="lbl">Apellidos</label>
@@ -67,6 +68,7 @@ const Pacientes = () => {
                             value={formPaciente.apellidos.value}
                             onChange={handleChange}
                         />
+                        <small className="block text-red-600"></small>
                     </div>
                 </div>
                 <div className="flex flex-wrap -mx-3 mb-6">
@@ -78,6 +80,7 @@ const Pacientes = () => {
                             value={formPaciente.padecimiento.value}
                             onChange={handleChange}
                         />
+                        <small className="block text-red-600"></small>
                     </div>
                 </div>
                 <div className="flex flex-wrap -mx-3 mb-6">
@@ -90,6 +93,7 @@ const Pacientes = () => {
                             value={formPaciente.telefono.value}
                             onChange={handleChange}
                         />
+                        <small className="block text-red-600"></small>
                     </div>
                     <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                         <label className="lbl">Edad</label>
@@ -100,6 +104,7 @@ const Pacientes = () => {
                             value={formPaciente.edad.value}
                             onChange={handleChange}
                         />
+                        <small className="block text-red-600"></small>
                     </div>
                 </div>
                 <button type="submit" className="btn btn-blue btn-blue:hover">Guardar informacion</button>

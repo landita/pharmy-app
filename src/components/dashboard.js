@@ -11,7 +11,6 @@ import 'firebase/auth';
 //import de componentes
 import ConsultasComponent from './templates/consultas';
 import LoginComponent from './auth/login';
-import RegistrarseComponent from './auth/registrarse';
 import PacientesComponent from './templates/pacientes';
 
 const DashboardComponent = (props) => {
@@ -23,7 +22,6 @@ const DashboardComponent = (props) => {
 
     //eventos
     const handleOnClickToggleDesktop = (event) => setToggle(!toggle);
-
     const handleOnClickLogout = (event) => {
         db.auth().signOut();
     }
@@ -32,7 +30,6 @@ const DashboardComponent = (props) => {
 
         <Router>
             <Route path="/login" component={LoginComponent} exact/>
-            <Route path="/registrarse" component={RegistrarseComponent} exact/>
             {
                 user ? (
                     <Route 

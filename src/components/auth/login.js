@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
+import { withRouter } from 'react-router-dom'; 
 import { useFirebaseApp, useUser } from 'reactfire';
 import 'firebase/auth';
+import * as firebase from 'firebase/app';
 import '../../assets/dist.css';
 
 const LoginComponent = (props) => {
@@ -19,7 +21,17 @@ const LoginComponent = (props) => {
     };
     const handleOnSubmit = async (event) => {
         event.preventDefault();
-        await db.auth().signInWithEmailAndPassword(formValues.email, formValues.password);
+        await db.auth().signInWithEmailAndPassword(formValues.email, formValues.password).then(reponse => {
+            props.history.push('/consultas');
+        }).catch(error => console.log(error));
+    };
+    const handleOnClickGoogleAuth = async (event) => {
+        event.preventDefault();
+
+        const googleProvider = new firebase.auth.GoogleAuthProvider();
+        await db.auth().signInWithPopup(googleProvider).then(response => {
+            props.history.push('/consultas');
+        }).catch(error => console.log(error));
     };
 
     return(
@@ -34,7 +46,7 @@ const LoginComponent = (props) => {
                     <input 
                         type="email"
                         name="email"
-                        className="py-1 px-5 rounded border shadow-sm"
+                        className="py-1 px-9 rounded border shadow-sm"
                         placeholder="ingrese su email"
                         required
                         onChange={handleInputOnChange}
@@ -46,18 +58,25 @@ const LoginComponent = (props) => {
                     <input 
                         type="password"
                         name="password"
-                        className="py-1 px-5 rounded border shadow-sm"
+                        className="py-1 px-9 rounded border shadow-sm"
                         required
                         minLength="6"
                         onChange={handleInputOnChange}
                     />
                     <small className="block text-red-600">{passwordError}</small>
                 </div>
-                <button className="mt-5 bg-blue-600 py-2 px-16 rounded text-white">Iniciar sesion</button>
-                <p className="text-blue-600 mb-10">registrarse</p>
+                <button type="submit" className="mt-5 bg-blue-600 py-2 px-20 rounded text-white">Iniciar sesion</button>
+                <button 
+                    type="button" 
+                    className="mt-5 mb-10 text-black border border-blue-600 bg-transparent py-2 px-6 rounded text-white" 
+                    onClick={handleOnClickGoogleAuth}
+                >
+                    <img className="inline mr-2" src="https://img.icons8.com/color/452/google-logo.png" height="20px" width="20px"/>
+                    Iniciar sesion con google
+                </button>
             </form>
         </div>
     );
 
 };
-export default LoginComponent;
+export default withRouter(LoginComponent);

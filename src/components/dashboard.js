@@ -9,10 +9,11 @@ import {
 import { useFirebaseApp, useUser } from "reactfire";
 import 'firebase/auth';
 //import de componentes
-import ConsultasComponent from './templates/consultas/consultasForm';
+import ConsultasComponent from './templates/consultas/pageConsultas';
 import LoginComponent from './auth/login';
 import RegistrarseComponent from './auth/registrarse';
 import PacientesComponent from './templates/pacientes/pagePacientes';
+import ConsultasRegistrosComponent from './templates/consultas/tableRegistros';
 
 const Navbar = () => {
 
@@ -65,15 +66,15 @@ const Navbar = () => {
                                     </div>
                                     <div className={`${menu || menu2 ? 'block' : 'hidden'} w-full block flex-grow lg:flex lg:items-center lg:w-auto`}>
                                         <div className="text-sm lg:flex-grow">
+                                            <Link to="/consultas/hoy" className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
+                                                Consultas Diarias
+                                            </Link>
                                             <Link to="/consultas" className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
                                                 Consultas
                                             </Link>
                                             <Link to="/pacientes" className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
                                                 Pacientes
                                             </Link>
-                                            <a href="#responsive-header" className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
-                                                Doctores
-                                            </a>
                                         </div>
                                         <div>
                                             <button onClick={handleOnClickToggleDesktop} className="max-w-xs flex items-center text-sm text-white focus:outline-none focus:shadow-solid" id="user-menu" aria-label="User menu" aria-haspopup="true">
@@ -108,8 +109,9 @@ const Navbar = () => {
                                         {
                                             <Switch>
                                                 <Route path="/consultas" component={ConsultasComponent} exact />
+                                                <Route path="/consultas/hoy" component={ConsultasRegistrosComponent} exact />
                                                 <Route path="/pacientes" component={PacientesComponent} exact />
-                                                <Redirect from="/" to="/consultas" />
+                                                <Redirect from="/" to="/consultas/hoy" />
                                             </Switch>
                                         }
                                     </div>

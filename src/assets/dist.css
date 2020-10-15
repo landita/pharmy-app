@@ -39866,6 +39866,44 @@ video {
   background-color: rgba(26, 86, 219, var(--bg-opacity));
 }
 
+/* rojo */
+
+.btn-red {
+  --bg-opacity: 1;
+  background-color: #f05252;
+  background-color: rgba(240, 82, 82, var(--bg-opacity));
+  --text-opacity: 1;
+  color: #ffffff;
+  color: rgba(255, 255, 255, var(--text-opacity));
+}
+
+/* hover red */
+
+.btn-blue:hover {
+  --bg-opacity: 1;
+  background-color: #c81e1e;
+  background-color: rgba(200, 30, 30, var(--bg-opacity));
+}
+
+/* amarillo */
+
+.btn-yellow {
+  --bg-opacity: 1;
+  background-color: #c27803;
+  background-color: rgba(194, 120, 3, var(--bg-opacity));
+  --text-opacity: 1;
+  color: #ffffff;
+  color: rgba(255, 255, 255, var(--text-opacity));
+}
+
+/* hover yellow */
+
+.btn-yellow:hover {
+  --bg-opacity: 1;
+  background-color: #8e4b10;
+  background-color: rgba(142, 75, 16, var(--bg-opacity));
+}
+
 @media (min-width: 640px) {
   .sm\:container {
     width: 100%;

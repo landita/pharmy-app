@@ -35,3 +35,19 @@
 .btn-blue:hover {
     @apply bg-blue-700;
 }
+/* rojo */
+.btn-red {
+    @apply bg-red-500 text-white;
+}
+/* hover red */
+.btn-blue:hover {
+    @apply bg-red-700;
+}
+/* amarillo */
+.btn-yellow {
+    @apply bg-yellow-500 text-white;
+}
+/* hover yellow */
+.btn-yellow:hover {
+    @apply bg-yellow-700;
+}

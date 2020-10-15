@@ -3,7 +3,6 @@ import { withRouter } from 'react-router-dom';
 import { useFirebaseApp, useUser } from 'reactfire';
 import 'firebase/auth';
 import * as firebase from 'firebase/app';
-import '../../assets/dist.css';
 
 const LoginComponent = (props) => {
 

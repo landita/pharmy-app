@@ -3,3 +3,35 @@
 @tailwind components;
 @tailwind utilities;
 
+
+/* formulario */
+.form-container {
+    @apply w-full max-w-lg
+}
+/* estilo para label en form*/
+.lbl {
+    @apply block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2
+}
+
+/* campos del form */
+.input-form {
+    @apply appearance-none block w-full border rounded py-3 px-4 mb-3 leading-tight
+}
+
+/* grupos de input */
+.form-row {
+    @apply flex flex-wrap 
+}
+
+/* botones */
+.btn {
+    @apply font-bold py-2 px-4 rounded;
+}
+/* azul */
+.btn-blue {
+    @apply bg-blue-500 text-white;
+}
+/* hover azul */
+.btn-blue:hover {
+    @apply bg-blue-700;
+}

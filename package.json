@@ -11,8 +11,12 @@
     "firebase": "^7.23.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-hooks-paginator": "^0.4.4",
+    "react-js-pagination": "^3.0.3",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
+    "react-toastify": "^6.0.9",
+    "react-toastr": "^3.0.0",
     "reactfire": "^2.0.0-alpha.3"
   },
   "scripts": {

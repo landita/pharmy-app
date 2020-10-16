@@ -1,7 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useUser } from "reactfire";
 
 //pantalla de perfil de usuario
 const Pefril = () => {
+    const user = useUser();
+    //ocultando boton editar 
+    const [hiddenButtonEdit, setHiddenButtonEdit] = useState(false);
+    const hiddenButtonEditClick = () => { setHiddenButtonEdit(!hiddenButtonEdit); }
+    //estado de usuario y contraseña
+    const initUserForm = {
+        email: '',
+        password: ''
+    }
+    const [userForm, setUserForm] = useState(initUserForm);
+    const handleChange = (e) => {
+        setUserForm({
+            ...userForm,
+            [e.target.name]: e.target.value
+        })
+    }
+    //cambiando la contraseña
+    const handleSubmit = () => {
+
+    }
     //render
     return (
         <div className="grid grid-rows-3 grid-flow-col gap-4 pt-3">
@@ -10,7 +31,8 @@ const Pefril = () => {
                 <div className="card">
                     <div className="card-body">
                         <div className="card-tittle">Nombre completo</div>
-                        <p className="text-card">Correo electronico</p>
+                        <p>id: {user.uid} </p>
+                        <p className="text-card">{user.email} </p>
                     </div>
                 </div>
             </div>
@@ -19,18 +41,41 @@ const Pefril = () => {
                 <div className="card">
                     <div className="card-body">
                         <div className="card-tittle">Configuracion de la cuenta</div>
-                        <form className="form-container">
+                        <form className="form-container" onSubmit={handleSubmit}>
                             <div className="flex flex-wrap -mx-3 mb-6">
                                 <label className="lbl">Correo:</label>
-                                <input className="input-form" />
+                                <input
+                                    type="email"
+                                    name="email"
+                                    className="input-form"
+                                    value={userForm.email}
+                                    onChange={handleChange}
+                                    readOnly={!hiddenButtonEdit}
+                                />
                             </div>
                             <div className="flex flex-wrap -mx-3 mb-6">
                                 <label className="lbl">Contraseña:</label>
-                                <input type="password" className="input-form" />
+                                <input
+                                    type="password" 
+                                    name="password"
+                                    className="input-form" 
+                                    value={userForm.password}
+                                    onChange={handleChange}
+                                    readOnly={!hiddenButtonEdit}
+                                />
                             </div>
                             <div className="flex flex-wrap -mx-3 mb-6">
-                                <button className="btn btn-blue btn-blue:hover">Guardar cambios</button>
-                                <button className="btn btn-yellow btn-yellow:hover">Editar</button>
+                                <button
+                                    type="submit"
+                                    className={`${hiddenButtonEdit ? 'block' : 'hidden'} btn btn-blue btn-blue:hover`}>Guardar cambios</button>
+                                <button
+                                    type="button"
+                                    onClick={hiddenButtonEditClick}
+                                    className={`${hiddenButtonEdit ? 'hidden' : 'block'} btn btn-yellow btn-yellow:hover`}>Editar</button>
+                                <button
+                                    type="button"
+                                    onClick={hiddenButtonEditClick}
+                                    className={`${hiddenButtonEdit ? 'block' : 'hidden'} btn btn-yellow btn-yellow:hover`}>Cancelar</button>
                             </div>
                         </form>
                     </div>

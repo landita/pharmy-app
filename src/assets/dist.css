@@ -39877,6 +39877,12 @@ video {
   color: rgba(255, 255, 255, var(--text-opacity));
 }
 
+.btn-red:hover {
+  --bg-opacity: 1;
+  background-color: #c81e1e;
+  background-color: rgba(200, 30, 30, var(--bg-opacity));
+}
+
 /* hover red */
 
 .btn-blue:hover {

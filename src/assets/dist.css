@@ -39904,6 +39904,49 @@ video {
   background-color: rgba(142, 75, 16, var(--bg-opacity));
 }
 
+/* verde */
+
+.btn-green {
+  --bg-opacity: 1;
+  background-color: #0694a2;
+  background-color: rgba(6, 148, 162, var(--bg-opacity));
+}
+
+.btn-green:hover {
+  --bg-opacity: 1;
+  background-color: #036672;
+  background-color: rgba(3, 102, 114, var(--bg-opacity));
+}
+
+/* estilos para cards */
+
+.card {
+  max-width: 24rem;
+  border-radius: 0.25rem;
+  overflow: hidden;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.card-tittle {
+  font-weight: 700;
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.card-body {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.text-card {
+  --text-opacity: 1;
+  color: #374151;
+  color: rgba(55, 65, 81, var(--text-opacity));
+  font-size: 1rem;
+}
+
 @media (min-width: 640px) {
   .sm\:container {
     width: 100%;

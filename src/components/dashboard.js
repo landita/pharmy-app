@@ -12,6 +12,7 @@ import 'firebase/auth';
 import ConsultasComponent from './templates/consultas/pageConsultas';
 import LoginComponent from './auth/login';
 import PacientesComponent from './templates/pacientes/pacientes';
+import PerfilComponent from './auth/perfil';
 
 const Navbar = () => {
 
@@ -80,7 +81,7 @@ const Navbar = () => {
                                         <div>
                                             <div className={`${toggle ? 'block' : 'hidden'} origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg`}>
                                                 <div className="py-1 rounded-md bg-white shadow-xs" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
-                                                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Perfil</a>
+                                                    <Link to="/perfil" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Perfil</Link>
 
                                                     <p
                                                         onClick={handleOnClickLogout}
@@ -104,6 +105,7 @@ const Navbar = () => {
                                             <Switch>
                                                 <Route path="/consultas" component={ConsultasComponent} exact />
                                                 <Route path="/pacientes" component={PacientesComponent} exact />
+                                                <Route path="/perfil" component={PerfilComponent} exact />
                                                 <Redirect from="/" to="/consultas" />
                                             </Switch>
                                         }

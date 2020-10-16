@@ -39,6 +39,9 @@
 .btn-red {
     @apply bg-red-500 text-white;
 }
+.btn-red:hover {
+    @apply bg-red-700;
+}
 /* hover red */
 .btn-blue:hover {
     @apply bg-red-700;
@@ -50,4 +53,24 @@
 /* hover yellow */
 .btn-yellow:hover {
     @apply bg-yellow-700;
+}
+/* verde */
+.btn-green {
+    @apply bg-teal-500;
+}
+.btn-green:hover {
+    @apply bg-teal-700;
+}
+/* estilos para cards */
+.card {
+    @apply max-w-sm rounded overflow-hidden shadow-lg;
+}
+.card-tittle {
+    @apply font-bold text-xl mb-2;
+}
+.card-body {
+    @apply px-6 py-4;
+}
+.text-card {
+    @apply text-gray-700 text-base;
 }

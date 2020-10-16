@@ -284,6 +284,9 @@ const PageConsultas = () => {
                                             <button
                                                 onClick={handleDeleteConsulta}
                                                 className="btn btn-red btn-red:hover">Eliminar</button>
+                                            <button
+                                                
+                                                className="btn btn-green btn-green:hover">Pdf</button>
                                         </th>
                                     </tr>
                                 ))}

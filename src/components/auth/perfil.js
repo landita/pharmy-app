@@ -1,31 +1,37 @@
 import React, { useState } from 'react';
-import { useUser } from "reactfire";
+import { useUser, useFirebaseApp } from "reactfire";
+//alertas
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 //pantalla de perfil de usuario
 const Pefril = () => {
+    const db = useFirebaseApp();
     const user = useUser();
     //ocultando boton editar 
     const [hiddenButtonEdit, setHiddenButtonEdit] = useState(false);
     const hiddenButtonEditClick = () => { setHiddenButtonEdit(!hiddenButtonEdit); }
-    //estado de usuario y contraseña
-    const initUserForm = {
-        email: '',
-        password: ''
-    }
-    const [userForm, setUserForm] = useState(initUserForm);
-    const handleChange = (e) => {
-        setUserForm({
-            ...userForm,
-            [e.target.name]: e.target.value
-        })
-    }
-    //cambiando la contraseña
-    const handleSubmit = () => {
+    //estado de contraseña
+    //nueva
+    const [userFormPassword, setUserFormPassword] = useState('');
+    const handleChangeNewPassword = (e) => { setUserFormPassword(e.target.value);}
 
+    //cambiando la contraseña
+    const handleChangePassword = (e) => {
+        e.preventDefault();
+        var usuario = db.auth().currentUser;
+        usuario.updatePassword(userFormPassword).then(function(){
+            toast.success("Contraseña actualizada");
+        }).catch(function(error){
+            toast.error(`${error}`)
+        });
+        //limpiando estado
+        setUserFormPassword('');
     }
     //render
     return (
         <div className="grid grid-rows-3 grid-flow-col gap-4 pt-3">
+            <ToastContainer />
             {/* izquierda*/}
             <div className="row-span-3">
                 <div className="card">
@@ -41,26 +47,25 @@ const Pefril = () => {
                 <div className="card">
                     <div className="card-body">
                         <div className="card-tittle">Configuracion de la cuenta</div>
-                        <form className="form-container" onSubmit={handleSubmit}>
+                        <form className="form-container" onSubmit={handleChangePassword}>
                             <div className="flex flex-wrap -mx-3 mb-6">
                                 <label className="lbl">Correo:</label>
                                 <input
                                     type="email"
                                     name="email"
                                     className="input-form"
-                                    value={userForm.email}
-                                    onChange={handleChange}
-                                    readOnly={!hiddenButtonEdit}
+                                    value={user.email}
+                                    readOnly
                                 />
                             </div>
                             <div className="flex flex-wrap -mx-3 mb-6">
-                                <label className="lbl">Contraseña:</label>
+                                <label className="lbl">Contraseña nueva:</label>
                                 <input
                                     type="password" 
                                     name="password"
                                     className="input-form" 
-                                    value={userForm.password}
-                                    onChange={handleChange}
+                                    value={userFormPassword}
+                                    onChange={handleChangeNewPassword}
                                     readOnly={!hiddenButtonEdit}
                                 />
                             </div>

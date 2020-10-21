@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useUser, useFirebaseApp } from "reactfire";
 //alertas
 import { ToastContainer, toast } from 'react-toastify';
@@ -22,6 +22,17 @@ const Pefril = () => {
     const [userFormCurrentPassword, setuserFormCurrentPassword] = useState('');
     const handleChangeCurrentPassword = (e) => { setuserFormCurrentPassword(e.target.value) }
 
+    //buscando datos de doctor
+    const [infoDoctor, setInfoDoctor] = useState([]);
+    const handleDatos = () => {
+        db.firestore().collection('usuarios').where("email", "==", user.email).get()
+            .then((datos) => {
+                datos.forEach((doc) => {
+                    setInfoDoctor({ ...doc.data() });
+                })
+            })
+    }
+    useEffect(() => { handleDatos(); }, []);
     //reautenticando al usuario
     const reauthenticate = (currentPassword) => {
         var usuario = db.auth().currentUser;
@@ -59,9 +70,10 @@ const Pefril = () => {
             <div className="row-span-3">
                 <div className="card">
                     <div className="card-body">
-                        <div className="card-tittle">Nombre completo</div>
+                        <div className="card-tittle">{infoDoctor.nombres} {infoDoctor.apellidos}</div>
                         <p>id: {user.uid} </p>
-                        <p className="text-card">{user.email} </p>
+                        <p className="text-card text-indigo-700 text-opacity-700">{user.email} </p>
+                        <p>rol: {infoDoctor.rol}</p>
                     </div>
                 </div>
             </div>

@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import { withRouter } from 'react-router-dom'; 
-import { useFirebaseApp, useUser } from 'reactfire';
+import { Link, withRouter } from 'react-router-dom'; 
+import { useFirebaseApp } from 'reactfire';
 import 'firebase/auth';
 import * as firebase from 'firebase/app';
 
@@ -8,7 +8,6 @@ const LoginComponent = (props) => {
 
     //configuracion inicial
     const db = useFirebaseApp();
-    const user = useUser();
     const initFormValues = {email:'', password:''};
     const [emailError, passwordError] = '';
     const [formValues, setFormValues] = useState(initFormValues);
@@ -73,6 +72,7 @@ const LoginComponent = (props) => {
                     <img className="inline mr-2" src="https://img.icons8.com/color/452/google-logo.png" height="20px" width="20px"/>
                     Iniciar sesion con google
                 </button>
+                <Link to="/registro" className="text-blue-500 hover:text-blue-800">Registrarse</Link>
             </form>
         </div>
     );

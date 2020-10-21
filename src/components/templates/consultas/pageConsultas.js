@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 //importando firebase
 import 'firebase/firestore';
-import { useFirebaseApp, useUser } from 'reactfire';
+import { useFirebaseApp } from 'reactfire';
 //alertas
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -9,11 +9,15 @@ import 'react-toastify/dist/ReactToastify.css';
 import Pagination from "react-js-pagination";
 import './pagination.css';
 
+import FormConsultas from './formConsultas'
+import TableRegistrosConsultas from './tableRegistros';
+import Buscar from './Buscar'
+
 //funcion que controla las funciones de consultas
 const PageConsultas = () => {
     //usando firebase
     const db = useFirebaseApp();
-    const user = useUser();
+    //const user = useUser();
     const f = new Date();
     //estado de consultas
     const [consultasRegistros, setConsultasRegistros] = useState([]);
@@ -35,14 +39,14 @@ const PageConsultas = () => {
 
     const indexOfLastTodo = activePage * todosPerPage;
     const indexOfFirstTodo = indexOfLastTodo - todosPerPage;
-    const currentPacientes = consultasRegistros.slice(indexOfFirstTodo, indexOfLastTodo);
+    const currentConsultas = consultasRegistros.slice(indexOfFirstTodo, indexOfLastTodo);
     //enviando datos a la base
     const handlePageChange = (pageNumber) => setCurrentPage(pageNumber);
     //tomando fecha actual
     var fechaActual = `${f.getFullYear()}-${f.getMonth() + 1}-${f.getDate()} `;
     //estado para consultas
     const initConsulta = {
-        id_doctor: 'id doctor',
+        email_doctor: '',
         id_paciente: '',
         nombre_paciente: '',
         fecha: '',
@@ -55,14 +59,14 @@ const PageConsultas = () => {
     //buscando pacientes
     const [paciente, setPaciente] = useState([]);
     //ocultando tabla
-    const [ocultarTabla, setocultarTabla] = useState(false);
+    const [ocultarTablaP, setocultarTablaP] = useState(false);
     //buscando pacientes
     const [searchPaciente, setSearchPaciente] = useState('');
     const handleSearchPaciente = (e) => {
         setSearchPaciente(e.target.value)
         if (searchPaciente == '') {
             setPaciente([]);
-            setocultarTabla(false)
+            setocultarTablaP(false)
             setConsulta({
                 ...consulta,
                 id_paciente: '',
@@ -91,10 +95,30 @@ const PageConsultas = () => {
                     console.log("error: ", error)
                 });
             //cambiando estado de tabla
-            setocultarTabla(true);
+            setocultarTablaP(true);
         }
     }
     //buscando doctores
+    const [searchDoctor, setSearchDoctor ] = useState('');
+    const [doctor, setDoctor] = useState([]);
+    const [ocultarTablaD, setocultarTablaD] = useState(false);
+    const handleSearchDoctor = (e) => {
+        setSearchDoctor(e.target.value);
+        if(searchDoctor==''){
+            setDoctor([]);
+            setConsulta({...consulta, email_doctor: ''})
+            setocultarTablaD(false);
+        }else{
+            db.firestore().collection('usuarios').where("apellidos", "==", e.target.value).get()
+            .then((resultado) => {
+                resultado.forEach((doc) => {
+                    setDoctor({...doc.data()})
+                    setConsulta({...consulta, email_doctor: doc.data().email})
+                })
+            }).catch((error)=>{console.log(error)});
+            setocultarTablaD(true);
+        }
+    }
     //cambiando el estado
     const handleChange = (e) => {
         setConsulta({
@@ -140,170 +164,58 @@ const PageConsultas = () => {
                 toast.success("Consultas Registrada");
             }
         }
+        setConsulta(initConsulta);
         setSearchPaciente('');
         setPaciente([]);
-        setocultarTabla(false);
+        setocultarTablaP(false);
+        setocultarTablaD(false);
+        setDoctor([]);
+        setSearchDoctor('');
     }
     //
     //render de la pagina
     return (
         <div className="grid grid-rows-3 grid-flow-col gap-4 pt-3">
-            <ToastContainer />
             {/** formulario */}
             <div className="row-span-3">
-                {/** buscando pacientes */}
-                <div className="flex flex-wrap -mx-3 mb-6">
-                    <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                        <label className="lbl">buscar paciente</label>
-                        <input
-                            value={searchPaciente}
-                            onChange={handleSearchPaciente}
-                            className="input-form"
-                        ></input>
-                    </div>
-                    <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                    </div>
-                    <div className={`${ocultarTabla ? 'block' : 'hidden'} px-5`}>
-                        <table className="table-auto bg-gray-200 rounded">
-                            <thead>
-                                <tr>
-                                    <th className="px-4 py-2">Nombre</th>
-                                    <th className="px-4 py-2">Telefono</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td className="border px-4 py-2">{paciente.nombres} {paciente.apellidos}</td>
-                                    <td className="border px-4 py-2">{paciente.telefono}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                <div className="py-1 px-10">
+                    <ToastContainer />
+                    {/** buscando pacientes */}
+                    <Buscar
+                        searchPaciente={searchPaciente}
+                        handleSearchPaciente={handleSearchPaciente}
+                        handleSearchDoctor={handleSearchDoctor}
+                        ocultarTablaP={ocultarTablaP}
+                        ocultarTablaD={ocultarTablaD}
+                        paciente={paciente}
+                        doctor= {doctor}
+                    />
+                    {/** formulario para registrar consultas en la base */}
+                    <FormConsultas
+                        handleSubmit={handleSubmit}
+                        fechaActual={fechaActual}
+                        consulta={consulta}
+                        handleChange={handleChange}
+                    />
                 </div>
-                {/** buscando doctor */}{/*
-                <div className="flex flex-wrap -mx-3 mb-6">
-                    <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                        <label className="lbl">buscar Doctor</label>
-                        <input
-                            className="input-form"
-                        ></input>
-                    </div>
-                    <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                    </div>
-                    <div className={`px-5`}>
-                        <table className="table-auto bg-gray-200 rounded">
-                            <thead>
-                                <tr>
-                                    <th className="px-4 py-2">id</th>
-                                    <th className="px-4 py-2">Nombre</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td className="border px-4 py-2">{consulta.id_doctor}</td>
-                                    <td className="border px-4 py-2">Init py</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>*/}
-                {/** formulario para registrar consultas en la base */}
-                <form className="form-container" onSubmit={handleSubmit}>
-                    <div className="flex flex-wrap -mx-3 mb-6">
-                        <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                            <label className="lbl">fecha de la cita</label>
-                            <input
-                                name="fecha"
-                                type="date"
-                                min={`${fechaActual}`}
-                                className="input-form"
-                                value={consulta.fecha}
-                                onChange={handleChange}
-                                required
-                            />
-                        </div>
-                        <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                            <label className="lbl">hora</label>
-                            <input
-                                name="hora"
-                                type="time"
-                                min="07:00"
-                                className="input-form"
-                                value={consulta.hora}
-                                onChange={handleChange}
-                                required
-                            />
-                        </div>
-                    </div>
-                    <div className="flex flex-wrap -mx-3 mb-6">
-                        <label className="lbl">Receta medica</label>
-                        <textarea
-                            name="receta"
-                            rows="2"
-                            cols="20"
-                            className="input-form"
-                            value={consulta.receta}
-                            onChange={handleChange}
-                        />
-                    </div>
-                    <div className="flex flex-wrap -mx-3 mb-6">
-                        <label className="lbl">recomendaciones</label>
-                        <textarea
-                            name="recomendaciones"
-                            rows="2"
-                            className="input-form"
-                            value={consulta.recomendaciones}
-                            onChange={handleChange}
-                        />
-                    </div>
-                    <button type="submit" className="btn btn-blue btn-blue:hover">Guardar registro</button>
-                </form>
             </div>
             {/** table de registros */}
             <div className="row-span-3">
-                <div className="flex mb-4">
-                    <div className="py-5">
-                        <table className="table-auto bg-gray-200 rounded">
-                            <thead>
-                                <tr>
-                                    <th className="px-4 py-2">Nombre paciente</th>
-                                    <th className="px-4 py-2">Hora</th>
-                                    <th className="px-4 py-2">Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {consultasRegistros.map((datos) => (
-                                    <tr key={datos.id}>
-                                        <td className="hidden">{datos.id}</td>
-                                        <th className="border px-4 py-2">{datos.nombre_paciente}</th>
-                                        <th className="border px-4 py-2">{datos.hora}</th>
-                                        <th className="border px-4 py-2">
-                                            <button
-                                                onClick={handleUpdateConsulta}
-                                                className="btn btn-yellow btn-yellow:hover">Editar</button>
-                                            <button
-                                                onClick={handleDeleteConsulta}
-                                                className="btn btn-red btn-red:hover">Eliminar</button>
-                                            <button
-                                                
-                                                className="btn btn-green btn-green:hover">Pdf</button>
-                                        </th>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                        {
-                            consultasRegistros.length !== 0 &&
-                            <Pagination
-                                activePage={activePage}
-                                itemsCountPerPage={3}
-                                totalItemsCount={consultasRegistros.length}
-                                pageRangeDisplayed={2}
-                                onChange={handlePageChange}
-                            />
-                        }
-                    </div>
-                </div>
+                <TableRegistrosConsultas
+                    currentConsultas={currentConsultas}
+                    handleUpdateConsulta={handleUpdateConsulta}
+                    handleDeleteConsulta={handleDeleteConsulta}
+                />
+                {
+                    consultasRegistros.length !== 0 &&
+                    <Pagination
+                        activePage={activePage}
+                        itemsCountPerPage={3}
+                        totalItemsCount={consultasRegistros.length}
+                        pageRangeDisplayed={2}
+                        onChange={handlePageChange}
+                    />
+                }
             </div>
         </div>
     )

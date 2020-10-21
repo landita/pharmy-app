@@ -11,8 +11,10 @@ import 'firebase/auth';
 //import de componentes
 import ConsultasComponent from './templates/consultas/pageConsultas';
 import LoginComponent from './auth/login';
+import RegistroComponent from './auth/registry';
 import PacientesComponent from './templates/pacientes/pacientes';
 import PerfilComponent from './auth/perfil';
+import UsuarioComponent from './auth/usuarios';
 
 const Navbar = () => {
 
@@ -38,13 +40,28 @@ const Navbar = () => {
     const handleScreenMin = () => { setMenu2(!menu2); }
     useEffect(() => {
         handleScreen();
-    })
+        handleRol();
+    }, [])
     //eventos
     const handleOnClickToggleDesktop = () => setToggle(!toggle);
+
+    //obteniendo rol del usuario
+    const [rol, setRol] = useState('');
+    const handleRol = () => {
+        var Rol= "";
+        db.firestore().collection('usuarios').where("email", "==", user.email).get()
+            .then((resultado) => {
+                resultado.forEach((doc) => {
+                    Rol = doc.data().rol;
+                })
+                setRol(Rol);
+            })
+    }
 
     return (
         <Router>
             <Route path="/login" component={LoginComponent} exact />
+            <Route path="/registro" component={RegistroComponent} exact />
             {
                 user ? (
                     <Route
@@ -70,6 +87,12 @@ const Navbar = () => {
                                             <Link to="/pacientes" className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
                                                 Pacientes
                                             </Link>
+                                            {rol == "admin" ?
+                                                <Link to="/usuarios" className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
+                                                    Usuarios
+                                               </Link> 
+                                               : ""
+                                            }
                                         </div>
                                         <div>
                                             <button onClick={handleOnClickToggleDesktop} className="max-w-xs flex items-center text-sm text-white focus:outline-none focus:shadow-solid" id="user-menu" aria-label="User menu" aria-haspopup="true">
@@ -106,6 +129,7 @@ const Navbar = () => {
                                                 <Route path="/consultas" component={ConsultasComponent} exact />
                                                 <Route path="/pacientes" component={PacientesComponent} exact />
                                                 <Route path="/perfil" component={PerfilComponent} exact />
+                                                <Route path="/usuarios" component={UsuarioComponent} exact />
                                                 <Redirect from="/" to="/consultas" />
                                             </Switch>
                                         }

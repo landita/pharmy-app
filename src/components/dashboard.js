@@ -48,14 +48,16 @@ const Navbar = () => {
     //obteniendo rol del usuario
     const [rol, setRol] = useState('');
     const handleRol = () => {
-        var Rol= "";
-        db.firestore().collection('usuarios').where("email", "==", user.email).get()
+        var Rol = "";
+        if (user) {
+            db.firestore().collection('usuarios').where("email", "==", user.email).get()
             .then((resultado) => {
                 resultado.forEach((doc) => {
                     Rol = doc.data().rol;
                 })
                 setRol(Rol);
             })
+        }
     }
 
     return (
@@ -90,8 +92,8 @@ const Navbar = () => {
                                             {rol == "admin" ?
                                                 <Link to="/usuarios" className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
                                                     Usuarios
-                                               </Link> 
-                                               : ""
+                                               </Link>
+                                                : ""
                                             }
                                         </div>
                                         <div>

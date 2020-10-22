@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import {FirebaseAppProvider} from 'reactfire';
 import firebaseConfig from './firebase.config';
 import DashboardComponent from './components/dashboard';
-import './assets/dist.css';
+//import './assets/dist.css';
 
 
 ReactDOM.render(

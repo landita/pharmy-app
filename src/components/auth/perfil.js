@@ -5,9 +5,12 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import 'firebase/firebase';
 import * as firebase from 'firebase/app';
+//footer
+import Footer from '../footer';
 
 //pantalla de perfil de usuario
 const Pefril = () => {
+    const f = new Date();
     const db = useFirebaseApp();
     const user = useUser();
     const auth = firebase;
@@ -64,74 +67,90 @@ const Pefril = () => {
     }
     //render
     return (
-        <div className="grid grid-rows-3 grid-flow-col gap-4 pt-3">
-            <ToastContainer />
-            {/* izquierda*/}
-            <div className="row-span-3">
-                <div className="card">
-                    <div className="card-body">
-                        <div className="card-tittle">{infoDoctor.nombres} {infoDoctor.apellidos}</div>
-                        <p>id: {user.uid} </p>
-                        <p className="text-card text-indigo-700 text-opacity-700">{user.email} </p>
-                        <p>rol: {infoDoctor.rol}</p>
+        <div>
+            <div className="d-sm-flex align-items-center justify-content-between mb-4 p-3 text-dark" style={{ backgroundColor: "#BFCDE3" }}>
+                <h1 className="h3 mb-0 text-gray-800">Cuenta de usuario</h1>
+                <p className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Hora: {f.getHours()}:{f.getMinutes()}</p>
+            </div>
+            <div className="container py-5 row">
+                <ToastContainer />
+                {/* izquierda*/}
+                <div className="col">
+                    <div className="card shadow py-2">
+                        <div className="card-body">
+                            <div className="card-tittle">{infoDoctor.nombres} {infoDoctor.apellidos}</div>
+                            <p>id: {user.uid} </p>
+                            <p className="text-primary">{user.email} </p>
+                            <p>rol: {infoDoctor.rol}</p>
+                        </div>
+                    </div>
+                </div>
+                {/* derecha */}
+                <div className="col">
+                    <div className="card">
+                        <div className="card-body">
+                            <div className="card-tittle">Configuracion de la cuenta</div>
+                            <form className="form-container" onSubmit={handleChangePassword}>
+                                <div className="flex flex-wrap -mx-3 mb-6">
+                                    <label className="lbl">Correo:</label>
+                                    <input
+                                        type="email"
+                                        name="email"
+                                        className="form-control"
+                                        value={user.email}
+                                        readOnly
+                                    />
+                                </div>
+                                <div className="flex flex-wrap -mx-3 mb-6">
+                                    <label className="lbl">Contraseña anterior:</label>
+                                    <input
+                                        type="password"
+                                        name="password"
+                                        className="form-control"
+                                        value={userFormCurrentPassword}
+                                        onChange={handleChangeCurrentPassword}
+                                        readOnly={!hiddenButtonEdit}
+                                    />
+                                </div>
+                                <div className="flex flex-wrap -mx-3 mb-6">
+                                    <label className="lbl">Contraseña nueva:</label>
+                                    <input
+                                        type="password"
+                                        name="password"
+                                        className="form-control"
+                                        value={userFormNewPassword}
+                                        onChange={handleChangeNewPassword}
+                                        readOnly={!hiddenButtonEdit}
+                                    />
+                                </div>
+                                <div>
+                                    <br />
+                                    <button
+                                        type="submit"
+                                        className="btn btn-primary"
+                                        hidden={!hiddenButtonEdit}
+                                    >Guardar cambios</button>
+                                    <br />
+                                    <button
+                                        type="button"
+                                        onClick={hiddenButtonEditClick}
+                                        className="btn btn-warning"
+                                        hidden={hiddenButtonEdit}
+                                    >Editar</button>
+                                    <br />
+                                    <button
+                                        type="button"
+                                        onClick={hiddenButtonEditClick}
+                                        className="btn btn-warning"
+                                        hidden={!hiddenButtonEdit}
+                                    >Cancelar</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
-            {/* derecha */}
-            <div className="row-span-3">
-                <div className="card">
-                    <div className="card-body">
-                        <div className="card-tittle">Configuracion de la cuenta</div>
-                        <form className="form-container" onSubmit={handleChangePassword}>
-                            <div className="flex flex-wrap -mx-3 mb-6">
-                                <label className="lbl">Correo:</label>
-                                <input
-                                    type="email"
-                                    name="email"
-                                    className="input-form bg-gray-200"
-                                    value={user.email}
-                                    readOnly
-                                />
-                            </div>
-                            <div className="flex flex-wrap -mx-3 mb-6">
-                                <label className="lbl">Contraseña anterior:</label>
-                                <input
-                                    type="password"
-                                    name="password"
-                                    className={`${!hiddenButtonEdit ? 'bg-gray-200' : ''} input-form`}
-                                    value={userFormCurrentPassword}
-                                    onChange={handleChangeCurrentPassword}
-                                    readOnly={!hiddenButtonEdit}
-                                />
-                            </div>
-                            <div className="flex flex-wrap -mx-3 mb-6">
-                                <label className="lbl">Contraseña nueva:</label>
-                                <input
-                                    type="password"
-                                    name="password"
-                                    className={`${!hiddenButtonEdit ? 'bg-gray-200' : ''} input-form`}
-                                    value={userFormNewPassword}
-                                    onChange={handleChangeNewPassword}
-                                    readOnly={!hiddenButtonEdit}
-                                />
-                            </div>
-                            <div className="flex flex-wrap -mx-3 mb-6">
-                                <button
-                                    type="submit"
-                                    className={`${hiddenButtonEdit ? 'block' : 'hidden'} btn btn-blue btn-blue:hover`}>Guardar cambios</button>
-                                <button
-                                    type="button"
-                                    onClick={hiddenButtonEditClick}
-                                    className={`${hiddenButtonEdit ? 'hidden' : 'block'} btn btn-yellow btn-yellow:hover`}>Editar</button>
-                                <button
-                                    type="button"
-                                    onClick={hiddenButtonEditClick}
-                                    className={`${hiddenButtonEdit ? 'block' : 'hidden'} btn btn-yellow btn-yellow:hover`}>Cancelar</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
+            <Footer />
         </div>
     )
 }

@@ -6,8 +6,8 @@ import { withRouter } from 'react-router-dom';
 import Pagination from "react-js-pagination";
 import './pagination.css';
 
-const PacientesComponent = (props) => {
-
+const PacientesComponent = () => {
+    const f = new Date();
     const db = useFirebaseApp();
     const initFormValues = {
         nombres: '',
@@ -65,137 +65,139 @@ const PacientesComponent = (props) => {
             db.firestore().collection('pacientes').doc(idPaciente).set(formPaciente);
             setIdPaciente('');
         }
-        else db.firestore().collection('pacientes').add(formPaciente);
+        else {
+            db.firestore().collection('pacientes').add(formPaciente)
+            setIdPaciente('');
+        };
         setformPaciente(initFormValues);
         notify();
     }
 
     return (
-        <div className="grid grid-rows-3 grid-flow-col gap-4 pt-3">
-            <div className="row-span-3">
-                <div className="py-1 px-10">
-                    <ToastContainer />
-                    <form className="form-container" onSubmit={handleSubmit}>
-                        <div className="flex flex-wrap -mx-3 mb-6">
-                            <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                                <label className="lbl">Nombres</label>
-                                <input
-                                    type="text"
-                                    className="input-form"
-                                    name="nombres"
-                                    value={formPaciente.nombres}
-                                    onChange={handleChange}
-                                    required
-                                />
-                                <small className="block text-red-600"></small>
-                            </div>
-                            <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                                <label className="lbl">Apellidos</label>
-                                <input
-                                    type="text"
-                                    className="input-form"
-                                    name="apellidos"
-                                    value={formPaciente.apellidos}
-                                    onChange={handleChange}
-                                    required
-                                />
-                                <small className="block text-red-600"></small>
-                            </div>
-                        </div>
-                        <div className="flex flex-wrap -mx-3 mb-6">
-                            <div className="w-full px-3">
-                                <label className="lbl">Algun padecimiento o enfermedad?</label>
-                                <textarea rows="5" cols="5"
-                                    className="input-form"
-                                    name="padecimiento"
-                                    value={formPaciente.padecimiento}
-                                    onChange={handleChange}
-                                    required
-                                />
-                                <small className="block text-red-600"></small>
-                            </div>
-                        </div>
-                        <div className="flex flex-wrap -mx-3 mb-6">
-                            <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                                <label className="lbl">Telefono </label>
-                                <input
-                                    type="text"
-                                    className="input-form"
-                                    name="telefono"
-                                    value={formPaciente.telefono}
-                                    onChange={handleChange}
-                                    placeholder="####-####"
-                                    required
-                                    pattern="^\d{4}-\d{4}$"
-                                />
-                                <small className="block text-red-600"></small>
-                            </div>
-                            <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                                <label className="lbl">Edad</label>
-                                <input
-                                    type="number"
-                                    className="input-form"
-                                    name="edad"
-                                    value={formPaciente.edad}
-                                    onChange={handleChange}
-                                    required
-                                    min="0"
-                                />
-                                <small className="block text-red-600"></small>
-                            </div>
-                        </div>
-                        <button type="submit" className="btn btn-blue btn-blue:hover">Guardar informacion</button>
-                    </form>
-                </div>
+        <div>
+            <div className="d-sm-flex align-items-center justify-content-between mb-4 p-3 text-dark" style={{ backgroundColor: "#BFCDE3" }}>
+                <h1 className="h3 mb-0 text-gray-800">Pacientes</h1>
+                <p className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Hora: {f.getHours()}:{f.getMinutes()}</p>
             </div>
-            <div className="row-span-3">
-                <div>
-                    <table className="table-auto bg-white rounded text-center ">
-                        <thead>
-                            <tr>
-                                <th className="px-4 py-2 border">Nombre</th>
-                                <th className="px-4 py-2 border">Telefono</th>
-                                <th className="px-4 py-2 border">Consultas</th>
-                                <th className="px-4 py-2 border">Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {currentPacientes.map((response) => (
-                                <tr key={response.id}>
-                                    <td className="hidden">{response.id}</td>
-                                    <td className="border px-4 py-2">{response.nombres} {response.apellidos}</td>
-                                    <td className="border px-4 py-2">{response.telefono}</td>
-                                    <td className="border px-4 py-2"><button
-                                        className="bg-gray-200 hover:bg-gray-300 text-gray-900 py-1 px-1 rounded">Registros</button>
-                                    </td>
-                                    <td className="border px-4 py-2">
-                                        <button
-                                            id="editar"
-                                            className="bg-yellow-300 hover:bg-yellow-800 text-white py-1 px-1 rounded mr-1"
-                                            type="button"
-                                            onClick={handleOnClickUpdatePaciente}
-                                        >Editar</button>
-                                        <button
-                                            id="eliminar"
-                                            className="bg-red-500 hover:bg-red-800 text-white py-1 px-1 rounded"
-                                            type="button"
-                                            onClick={handleOnClickDeletePaciente}
-                                        >Eliminar</button>
-                                    </td>
+
+            <div className="container row py-3">
+                <div className="col">
+                    <div className="card">
+                        <div className="card-body">
+                            <ToastContainer />
+                            <form onSubmit={handleSubmit}>
+                                <div className="form-row">
+                                    <div className="col">
+                                        <label>Nombres</label>
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            name="nombres"
+                                            value={formPaciente.nombres}
+                                            onChange={handleChange}
+                                            required
+                                        />
+                                    </div>
+                                    <div className="col">
+                                        <label className="lbl">Apellidos</label>
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            name="apellidos"
+                                            value={formPaciente.apellidos}
+                                            onChange={handleChange}
+                                            required
+                                        />
+                                    </div>
+                                </div>
+                                <div className="form-group">
+                                    <label>Algun padecimiento o enfermedad?</label>
+                                    <textarea rows="5" cols="5"
+                                        className="form-control"
+                                        name="padecimiento"
+                                        value={formPaciente.padecimiento}
+                                        onChange={handleChange}
+                                        required
+                                    />
+                                </div>
+                                <div className="form-row">
+                                    <div className="col">
+                                        <label>Telefono </label>
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            name="telefono"
+                                            value={formPaciente.telefono}
+                                            onChange={handleChange}
+                                            placeholder="####-####"
+                                            required
+                                            pattern="^\d{4}-\d{4}$"
+                                        />
+                                    </div>
+                                    <div className="col">
+                                        <label>Edad</label>
+                                        <input
+                                            type="number"
+                                            className="form-control"
+                                            name="edad"
+                                            value={formPaciente.edad}
+                                            onChange={handleChange}
+                                            required
+                                            min="0"
+                                        />
+                                    </div>
+                                </div>
+                                <br />
+                                <button type="submit" className="btn btn-primary">Guardar informacion</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div className="col">
+                    <div>
+                        <table className="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Telefono</th>
+                                    <th>Acciones</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                    {
-                        pacientes.length !== 0 &&
-                        <Pagination
-                            activePage={activePage}
-                            itemsCountPerPage={3}
-                            totalItemsCount={pacientes.length}
-                            pageRangeDisplayed={2}
-                            onChange={handlePageChange}
-                        />
-                    }
+                            </thead>
+                            <tbody>
+                                {currentPacientes.map((response) => (
+                                    <tr key={response.id}>
+                                        <td hidden>{response.id}</td>
+                                        <td>{response.nombres} {response.apellidos}</td>
+                                        <td>{response.telefono}</td>
+                                        <td>
+                                            <button
+                                                id="editar"
+                                                className="btn btn-warning"
+                                                type="button"
+                                                onClick={handleOnClickUpdatePaciente}
+                                            >Editar</button>
+                                            <button
+                                                id="eliminar"
+                                                className="btn btn-danger"
+                                                type="button"
+                                                onClick={handleOnClickDeletePaciente}
+                                            >Eliminar</button>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                        {
+                            pacientes.length !== 0 &&
+                            <Pagination
+                                activePage={activePage}
+                                itemsCountPerPage={3}
+                                totalItemsCount={pacientes.length}
+                                pageRangeDisplayed={2}
+                                onChange={handlePageChange}
+                            />
+                        }
+                    </div>
                 </div>
             </div>
         </div>

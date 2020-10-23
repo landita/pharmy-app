@@ -3,7 +3,7 @@ import { Link, withRouter } from 'react-router-dom';
 import { useFirebaseApp } from 'reactfire';
 import 'firebase/auth';
 import * as firebase from 'firebase/app';
-
+import Footer from '../footer';
 const LoginComponent = (props) => {
 
     //configuracion inicial
@@ -33,55 +33,63 @@ const LoginComponent = (props) => {
     };
 
     return (
-        <div className="mx-auto">
-            <div className="card text-center" style={{ width: 30 + "rem", height: 30 + "rem" }}>
-                <div className="py-3">
-                    <form
-                        onSubmit={handleOnSubmit}
-                    >
-                        <h1>Pharmy-app</h1>
-                        <div className="mt-10">
-                            <label>email</label>
-                            <input
-                                type="email"
-                                name="email"
-                                className="form-control"
-                                placeholder="ingrese su email"
-                                required
-                                onChange={handleInputOnChange}
-                            />
-                            <small className="block text-red-600">{emailError}</small>
+        <div className="center-block">
+            <div className="container align-self-center">
+                <div className="w-50 px-5 py-5">
+                    <div className="card text-center">
+                        <div className="card-body">
+                        <h1 className="card-tittle">Pharmy-app</h1>
+                        <hr/>
+                        <h5>Login</h5>
+                            <form
+                                onSubmit={handleOnSubmit}
+                            >
+                                <div className="form-group">
+                                    <label>Correo</label>
+                                    <input
+                                        type="email"
+                                        name="email"
+                                        className="form-control"
+                                        placeholder="ingrese su email"
+                                        required
+                                        onChange={handleInputOnChange}
+                                    />
+                                    <small className="block text-red-600">{emailError}</small>
+                                </div>
+                                <div className="form-group">
+                                    <label>Contraseña</label>
+                                    <input
+                                        type="password"
+                                        name="password"
+                                        className="form-control"
+                                        required
+                                        minLength="6"
+                                        onChange={handleInputOnChange}
+                                    />
+                                    <small className="block text-red-600">{passwordError}</small>
+                                </div>
+                                <div className="form-group text-center">
+                                    <button type="submit" className="btn btn-primary">Iniciar sesion</button>
+                                </div>
+                                <div className="form-group text-center">
+                                    <button
+                                        type="button"
+                                        className="btn btn-outline-secondary"
+                                        onClick={handleOnClickGoogleAuth}
+                                    >
+                                        <img className="inline mr-2" src="https://img.icons8.com/color/452/google-logo.png" height="20px" width="20px" />
+                            Iniciar sesion con google
+                            </button>
+                                </div>
+                                <div className="form-group text-center">
+                                    <Link to="/registro" className="text-primary">Registrarse</Link>
+                                </div>
+                            </form>
                         </div>
-                        <div className="mt-5">
-                            <label>password</label>
-                            <input
-                                type="password"
-                                name="password"
-                                className="form-control"
-                                required
-                                minLength="6"
-                                onChange={handleInputOnChange}
-                            />
-                            <small className="block text-red-600">{passwordError}</small>
-                        </div>
-                        <br />
-                        <button type="submit" className="btn btn-primary">Iniciar sesion</button>
-                        <br />
-                        <br />
-                        <button
-                            type="button"
-                            className="btn btn-ligth"
-                            onClick={handleOnClickGoogleAuth}
-                        >
-                            <img className="inline mr-2" src="https://img.icons8.com/color/452/google-logo.png" height="20px" width="20px" />
-                    Iniciar sesion con google
-                </button>
-                        <br />
-                        <br />
-                        <Link to="/registro" className="btn btn-primary">Registrarse</Link>
-                    </form>
+                    </div>
                 </div>
             </div>
+            <Footer />
         </div>
     );
 

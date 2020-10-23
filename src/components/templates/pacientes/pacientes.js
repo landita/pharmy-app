@@ -5,6 +5,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import { withRouter } from 'react-router-dom';
 import Pagination from "react-js-pagination";
 import './pagination.css';
+import Footer from '../../footer';
+
 
 const PacientesComponent = () => {
     const f = new Date();
@@ -155,9 +157,9 @@ const PacientesComponent = () => {
                 </div>
                 <div className="col">
                     <div>
-                        <table className="table table-hover">
+                        <table className="table table-hover table-striped">
                             <thead>
-                                <tr>
+                                <tr className="bg-primary">
                                     <th>Nombre</th>
                                     <th>Telefono</th>
                                     <th>Acciones</th>
@@ -200,6 +202,7 @@ const PacientesComponent = () => {
                     </div>
                 </div>
             </div>
+            <Footer />
         </div>
     );
 };

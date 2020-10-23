@@ -39,15 +39,8 @@ const Navbar = () => {
         }
     }
     const handleScreenMin = () => { setMenu2(!menu2); }
-    useEffect(() => {
-        handleScreen();
-        handleRol();
-    }, [])
-    //eventos
-    const handleOnClickToggleDesktop = () => setToggle(!toggle);
-
-    //obteniendo rol del usuario
     const [rol, setRol] = useState('');
+    //obteniendo rol del usuario
     const handleRol = () => {
         var Rol = "";
         if (user) {
@@ -58,9 +51,14 @@ const Navbar = () => {
                     })
                     setRol(Rol);
                 })
-               // window.location.reload();
         }
     }
+    useEffect(() => {
+        handleScreen();
+        handleRol();
+    }, [])
+    //eventos
+    const handleOnClickToggleDesktop = () => setToggle(!toggle);
 
     return (
         <Router>
@@ -79,7 +77,7 @@ const Navbar = () => {
                                         <span className="navbar-toggler-icon"></span>
                                     </button>
                                     <div className={`navbar-collapse`}
-                                    hidden={menu==false && menu2==false}>
+                                        hidden={menu == false && menu2 == false}>
                                         <ul className="navbar-nav mr-auto">
                                             <li className="nav-item active">
                                                 <Link to="/consultas" className="nav-link">
@@ -97,7 +95,7 @@ const Navbar = () => {
                                                         Usuarios
                                                </Link>
                                                 </li>
-                                             : ''}
+                                                : ''}
                                         </ul>
                                         <div className="dropdown">
                                             <button className="btn btn-light"
@@ -120,7 +118,7 @@ const Navbar = () => {
                                     <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
                                         {
                                             <Switch>
-                                                <Route path="/inicio" component={InicioComponent} exact/>
+                                                <Route path="/inicio" component={InicioComponent} exact />
                                                 <Route path="/consultas" component={ConsultasComponent} exact />
                                                 <Route path="/pacientes" component={PacientesComponent} exact />
                                                 <Route path="/perfil" component={PerfilComponent} exact />

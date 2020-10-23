@@ -5,6 +5,7 @@ import { useFirebaseApp } from 'reactfire';
 //alertas
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Footer from '../footer';
 
 const UsuariosComponent = () => {
     const f = new Date();
@@ -28,6 +29,7 @@ const UsuariosComponent = () => {
     //editando usuario
     const initialFomUsuario = {
         nombres: '',
+        apellidos: '',
         email: '',
         rol: ''
     }
@@ -40,6 +42,7 @@ const UsuariosComponent = () => {
             db.firestore().collection('usuarios').doc(id).onSnapshot(resultado => {
                 setFormUsuario({
                     nombres: resultado.data().nombres,
+                    apellidos: resultado.data().apellidos,
                     email: resultado.data().email,
                     rol: resultado.data().rol
                 })
@@ -77,7 +80,7 @@ const UsuariosComponent = () => {
     return (
         <div>
             <div className="d-sm-flex align-items-center justify-content-between mb-4 p-3 text-dark" style={{ backgroundColor: "#BFCDE3" }}>
-                <h1 className="h3 mb-0 text-gray-800">Pacientes</h1>
+                <h1 className="h3 mb-0 text-gray-800">Usuarios</h1>
                 <p className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Hora: {f.getHours()}:{f.getMinutes()}</p>
             </div>
             <div className="container">
@@ -87,9 +90,15 @@ const UsuariosComponent = () => {
                         <form onSubmit={handleSubmit}>
                             <div className="form-row">
                                 <div className="col">
-                                    <label>Nombre</label>
+                                    <label>Nombres</label>
                                     <input name="nombres" onChange={handleChange} value={formUsuario.nombres} className="form-control" />
                                 </div>
+                                <div className="col">
+                                    <label>Apellidos</label>
+                                    <input name="apellidos" onChange={handleChange} value={formUsuario.apellidos} className="form-control" />
+                                </div>
+                            </div>
+                            <div className="form-row">
                                 <div className="col">
                                     <label>Correo</label>
                                     <input name="email" onChange={handleChange} value={formUsuario.email} className="form-control" />
@@ -116,7 +125,7 @@ const UsuariosComponent = () => {
                 <div className="py-1">
                     <table className="table table-hover">
                         <thead>
-                            <tr>
+                            <tr className="bg-primary">
                                 <th>Nombre</th>
                                 <th>Correo</th>
                                 <th>Rol</th>
@@ -145,6 +154,7 @@ const UsuariosComponent = () => {
                     </table>
                 </div>
             </div>
+            <Footer />
         </div>
     )
 };

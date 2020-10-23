@@ -8,10 +8,11 @@ import 'react-toastify/dist/ReactToastify.css';
 //paginacion
 import Pagination from "react-js-pagination";
 import './pagination.css';
-
+//importando componentes
 import FormConsultas from './formConsultas'
 import TableRegistrosConsultas from './tableRegistros';
 import Buscar from './Buscar'
+import Footer from '../../footer';
 
 //funcion que controla las funciones de consultas
 const PageConsultas = () => {
@@ -225,6 +226,7 @@ const PageConsultas = () => {
                     }
                 </div>
             </div>
+            <Footer />
         </div>
     )
 }

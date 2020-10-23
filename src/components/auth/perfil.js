@@ -78,6 +78,7 @@ const Pefril = () => {
                 <div className="col">
                     <div className="card shadow py-2">
                         <div className="card-body">
+                            <h5 className="card-title">Datos usuario</h5>
                             <div className="card-tittle">{infoDoctor.nombres} {infoDoctor.apellidos}</div>
                             <p>id: {user.uid} </p>
                             <p className="text-primary">{user.email} </p>
@@ -89,7 +90,7 @@ const Pefril = () => {
                 <div className="col">
                     <div className="card">
                         <div className="card-body">
-                            <div className="card-tittle">Configuracion de la cuenta</div>
+                            <h5 className="card-tittle">Configuracion de la cuenta</h5>
                             <form className="form-container" onSubmit={handleChangePassword}>
                                 <div className="flex flex-wrap -mx-3 mb-6">
                                     <label className="lbl">Correo:</label>

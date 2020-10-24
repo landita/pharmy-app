@@ -6,6 +6,9 @@ import { useFirebaseApp } from 'reactfire';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Footer from '../footer';
+//paginacion
+import Pagination from "react-js-pagination";
+import './pagination.css';
 
 const UsuariosComponent = () => {
     const f = new Date();
@@ -77,6 +80,17 @@ const UsuariosComponent = () => {
             toast.info("Usuario actualizado");
         } else { toast.error("Seleccione un usuario"); }
     }
+
+    // paginacion
+    const todosPerPage = 2;
+    const [activePage, setCurrentPage] = useState(1);
+
+    const indexOfLastTodo = activePage * todosPerPage;
+    const indexOfFirstTodo = indexOfLastTodo - todosPerPage;
+    const currentUsuarios = usuarios.slice(indexOfFirstTodo, indexOfLastTodo);
+    //enviando datos a la base
+    const handlePageChange = (pageNumber) => setCurrentPage(pageNumber);
+
     return (
         <div>
             <div className="d-sm-flex align-items-center justify-content-between mb-4 p-3 text-dark" style={{ backgroundColor: "#BFCDE3" }}>
@@ -134,7 +148,7 @@ const UsuariosComponent = () => {
                         </thead>
                         <tbody>
                             {
-                                usuarios.map((datos) => (
+                                currentUsuarios.map((datos) => (
                                     <tr key={datos.id}>
                                         <td hidden>{datos.id}</td>
                                         <td>{datos.nombres} {datos.apellidos}</td>
@@ -152,6 +166,16 @@ const UsuariosComponent = () => {
                             }
                         </tbody>
                     </table>
+                    {
+                        usuarios.length !== 0 &&
+                        <Pagination
+                            activePage={activePage}
+                            itemsCountPerPage={2}
+                            totalItemsCount={usuarios.length}
+                            pageRangeDisplayed={2}
+                            onChange={handlePageChange}
+                        />
+                    }
                 </div>
             </div>
             <Footer />

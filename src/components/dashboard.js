@@ -56,7 +56,7 @@ const Navbar = () => {
     useEffect(() => {
         handleScreen();
         handleRol();
-    }, [])
+    })
     //eventos
     const handleOnClickToggleDesktop = () => setToggle(!toggle);
 
@@ -95,7 +95,7 @@ const Navbar = () => {
                                                         Usuarios
                                                </Link>
                                                 </li>
-                                                : ''}
+                                                : (<Redirect to="/inicio" exact />)}
                                         </ul>
                                         <div className="dropdown">
                                             <button className="btn btn-light"

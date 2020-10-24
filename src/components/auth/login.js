@@ -84,6 +84,9 @@ const LoginComponent = (props) => {
                                 <div className="form-group text-center">
                                     <Link to="/registro" className="text-primary">Registrarse</Link>
                                 </div>
+                                <div className="form-group text-center">
+                                    <Link to="/registro" className="text-primary">Olvidaste tu contraseña?</Link>
+                                </div>
                             </form>
                         </div>
                     </div>

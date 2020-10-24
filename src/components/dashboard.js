@@ -16,6 +16,7 @@ import PacientesComponent from './templates/pacientes/pacientes';
 import PerfilComponent from './auth/perfil';
 import UsuarioComponent from './auth/usuarios';
 import InicioComponent from './inicio';
+import RecuperarComponent from './auth/resetPassword';
 
 const Navbar = () => {
 
@@ -64,6 +65,7 @@ const Navbar = () => {
         <Router>
             <Route path="/login" component={LoginComponent} exact />
             <Route path="/registro" component={RegistroComponent} exact />
+            <Route path="/recuperarcontraseña" component={RecuperarComponent} exact />
             {
                 user ? (
                     <Route

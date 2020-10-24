@@ -82,10 +82,10 @@ const LoginComponent = (props) => {
                             </button>
                                 </div>
                                 <div className="form-group text-center">
-                                    <Link to="/registro" className="text-primary">Registrarse</Link>
+                                    <p>No tienes cuenta? <Link to="/registro" className="text-primary">Registrate</Link></p>
                                 </div>
                                 <div className="form-group text-center">
-                                    <Link to="/registro" className="text-primary">Olvidaste tu contraseña?</Link>
+                                    <p>Olvidaste tu contraseña? <Link to="/recuperarcontraseña" className="text-primary">Restaurar</Link></p>
                                 </div>
                             </form>
                         </div>

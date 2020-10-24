@@ -118,7 +118,7 @@ const Registro = () => {
                                 <div className="form-group text-center">
                                     <button type="submit" className="btn btn-primary">Crear cuenta</button>
                                 </div>
-                                <Link to="/login" className="text-primary">Regresar al login</Link>
+                                <p>Tienes cuenta? <Link to="/login" className="text-primary">Regresa al login</Link></p>
                             </form>
                         </div>
                     </div>

@@ -33,61 +33,63 @@ const LoginComponent = (props) => {
     };
 
     return (
-        <div className="center-block">
-            <div className="container align-self-center">
-                <div className="w-50 px-5 py-5">
-                    <div className="card text-center">
-                        <div className="card-body">
-                        <h1 className="card-tittle">Pharmy-app</h1>
-                        <hr/>
-                        <h5>Login</h5>
-                            <form
-                                onSubmit={handleOnSubmit}
-                            >
-                                <div className="form-group">
-                                    <label>Correo</label>
-                                    <input
-                                        type="email"
-                                        name="email"
-                                        className="form-control"
-                                        placeholder="ingrese su email"
-                                        required
-                                        onChange={handleInputOnChange}
-                                    />
-                                    <small className="block text-red-600">{emailError}</small>
-                                </div>
-                                <div className="form-group">
-                                    <label>Contraseña</label>
-                                    <input
-                                        type="password"
-                                        name="password"
-                                        className="form-control"
-                                        required
-                                        minLength="6"
-                                        onChange={handleInputOnChange}
-                                    />
-                                    <small className="block text-red-600">{passwordError}</small>
-                                </div>
-                                <div className="form-group text-center">
-                                    <button type="submit" className="btn btn-primary">Iniciar sesion</button>
-                                </div>
-                                <div className="form-group text-center">
-                                    <button
-                                        type="button"
-                                        className="btn btn-outline-secondary"
-                                        onClick={handleOnClickGoogleAuth}
-                                    >
-                                        <img className="inline mr-2" src="https://img.icons8.com/color/452/google-logo.png" height="20px" width="20px" />
+        <div>
+            <div className="d-flex justify-content-center">
+                <div className="container">
+                    <div className="w-50 px-5 py-5">
+                        <div className="card text-center">
+                            <div className="card-body">
+                                <h1 className="card-tittle">Pharmy-app</h1>
+                                <hr />
+                                <h5>Login</h5>
+                                <form
+                                    onSubmit={handleOnSubmit}
+                                >
+                                    <div className="form-group">
+                                        <label>Correo</label>
+                                        <input
+                                            type="email"
+                                            name="email"
+                                            className="form-control"
+                                            placeholder="ingrese su email"
+                                            required
+                                            onChange={handleInputOnChange}
+                                        />
+                                        <small className="block text-red-600">{emailError}</small>
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Contraseña</label>
+                                        <input
+                                            type="password"
+                                            name="password"
+                                            className="form-control"
+                                            required
+                                            minLength="6"
+                                            onChange={handleInputOnChange}
+                                        />
+                                        <small className="block text-red-600">{passwordError}</small>
+                                    </div>
+                                    <div className="form-group text-center">
+                                        <button type="submit" className="btn btn-primary">Iniciar sesion</button>
+                                    </div>
+                                    <div className="form-group text-center">
+                                        <button
+                                            type="button"
+                                            className="btn btn-outline-secondary"
+                                            onClick={handleOnClickGoogleAuth}
+                                        >
+                                            <img className="inline mr-2" src="https://img.icons8.com/color/452/google-logo.png" height="20px" width="20px" />
                             Iniciar sesion con google
                             </button>
-                                </div>
-                                <div className="form-group text-center">
-                                    <p>No tienes cuenta? <Link to="/registro" className="text-primary">Registrate</Link></p>
-                                </div>
-                                <div className="form-group text-center">
-                                    <p>Olvidaste tu contraseña? <Link to="/recuperarcontraseña" className="text-primary">Restaurar</Link></p>
-                                </div>
-                            </form>
+                                    </div>
+                                    <div className="form-group text-center">
+                                        <p>No tienes cuenta? <Link to="/registro" className="text-primary">Registrate</Link></p>
+                                    </div>
+                                    <div className="form-group text-center">
+                                        <p>Olvidaste tu contraseña? <Link to="/recuperarcontraseña" className="text-primary">Restaurar</Link></p>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>

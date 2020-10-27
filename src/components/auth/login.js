@@ -1,21 +1,21 @@
-import React, {useState} from 'react';
-import { Link, withRouter } from 'react-router-dom'; 
+import React, { useState } from 'react';
+import { Link, withRouter } from 'react-router-dom';
 import { useFirebaseApp } from 'reactfire';
 import 'firebase/auth';
 import * as firebase from 'firebase/app';
-
+import Footer from '../footer';
 const LoginComponent = (props) => {
 
     //configuracion inicial
     const db = useFirebaseApp();
-    const initFormValues = {email:'', password:''};
+    const initFormValues = { email: '', password: '' };
     const [emailError, passwordError] = '';
     const [formValues, setFormValues] = useState(initFormValues);
 
     //eventos
     const handleInputOnChange = (event) => {
-        const {name, value} = event.target;
-        setFormValues({...formValues, [name]:value});
+        const { name, value } = event.target;
+        setFormValues({ ...formValues, [name]: value });
     };
     const handleOnSubmit = async (event) => {
         event.preventDefault();
@@ -32,48 +32,69 @@ const LoginComponent = (props) => {
         }).catch(error => console.log(error));
     };
 
-    return(
-        <div className="mx-auto max-w-xs">
-            <form 
-                onSubmit={handleOnSubmit}
-                className="mt-40 shadow-md bg-white flex flex-col justify-center items-center"
-            >
-                <h1 className="mt-10 text-xl text-blue-600">Pharmy-app</h1>
-                <div className="mt-10">
-                    <label className="block text-gray-800">email</label>
-                    <input 
-                        type="email"
-                        name="email"
-                        className="py-1 px-9 rounded border shadow-sm"
-                        placeholder="ingrese su email"
-                        required
-                        onChange={handleInputOnChange}
-                    />
-                    <small className="block text-red-600">{emailError}</small>
+    return (
+        <div>
+            <div className="d-flex justify-content-center">
+                <div className="container">
+                    <div className="w-50 px-5 py-5">
+                        <div className="card text-center">
+                            <div className="card-body">
+                                <h1 className="card-tittle">Pharmy-app</h1>
+                                <hr />
+                                <h5>Login</h5>
+                                <form
+                                    onSubmit={handleOnSubmit}
+                                >
+                                    <div className="form-group">
+                                        <label>Correo</label>
+                                        <input
+                                            type="email"
+                                            name="email"
+                                            className="form-control"
+                                            placeholder="ingrese su email"
+                                            required
+                                            onChange={handleInputOnChange}
+                                        />
+                                        <small className="block text-red-600">{emailError}</small>
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Contraseña</label>
+                                        <input
+                                            type="password"
+                                            name="password"
+                                            className="form-control"
+                                            required
+                                            minLength="6"
+                                            onChange={handleInputOnChange}
+                                        />
+                                        <small className="block text-red-600">{passwordError}</small>
+                                    </div>
+                                    <div className="form-group text-center">
+                                        <button type="submit" className="btn btn-primary">Iniciar sesion</button>
+                                    </div>
+                                    <div className="form-group text-center">
+                                        <button
+                                            type="button"
+                                            className="btn btn-outline-secondary"
+                                            onClick={handleOnClickGoogleAuth}
+                                        >
+                                            <img className="inline mr-2" src="https://img.icons8.com/color/452/google-logo.png" height="20px" width="20px" />
+                            Iniciar sesion con google
+                            </button>
+                                    </div>
+                                    <div className="form-group text-center">
+                                        <p>No tienes cuenta? <Link to="/registro" className="text-primary">Registrate</Link></p>
+                                    </div>
+                                    <div className="form-group text-center">
+                                        <p>Olvidaste tu contraseña? <Link to="/recuperarcontraseña" className="text-primary">Restaurar</Link></p>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div className="mt-5">
-                    <label className="block text-gray-800">password</label>
-                    <input 
-                        type="password"
-                        name="password"
-                        className="py-1 px-9 rounded border shadow-sm"
-                        required
-                        minLength="6"
-                        onChange={handleInputOnChange}
-                    />
-                    <small className="block text-red-600">{passwordError}</small>
-                </div>
-                <button type="submit" className="mt-5 bg-blue-600 py-2 px-20 rounded text-white">Iniciar sesion</button>
-                <button 
-                    type="button" 
-                    className="mt-5 mb-10 text-black border border-blue-600 bg-transparent py-2 px-6 rounded text-white" 
-                    onClick={handleOnClickGoogleAuth}
-                >
-                    <img className="inline mr-2" src="https://img.icons8.com/color/452/google-logo.png" height="20px" width="20px"/>
-                    Iniciar sesion con google
-                </button>
-                <Link to="/registro" className="text-blue-500 hover:text-blue-800">Registrarse</Link>
-            </form>
+            </div>
+            <Footer />
         </div>
     );
 

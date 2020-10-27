@@ -4,6 +4,8 @@ import { useFirebaseApp } from 'reactfire';
 import 'firebase/auth';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Footer from '../footer';
+
 
 const Registro = () => {
     //firebase 
@@ -56,60 +58,73 @@ const Registro = () => {
             })
     }
     return (
-        <div className="mx-auto max-w-xs">
-            <ToastContainer />
-            <form
-                onSubmit={handleOnSubmit}
-                className="mt-40 shadow-md bg-white flex flex-col justify-center items-center"
-            >
-                <h1 className="mt-10 text-xl text-blue-600">Pharmy-app</h1>
-                <div className="mt-10">
-                    <label className="block text-gray-800">Nombres:</label>
-                    <input
-                        type="text"
-                        name="nombres"
-                        className="py-1 px-9 rounded border shadow-sm"
-                        placeholder="nombres"
-                        required
-                        onChange={handleChangeForm}
-                    />
+        <div>
+            <div className="container align-self-center">
+                <ToastContainer />
+                <div className="w-50 px-5 py-5">
+                    <div className="card text-center">
+                        <div className="card-body">
+                            <h1 className="card-title">Pharmy-app</h1>
+                            <hr />
+                            <h5>Registro</h5>
+                            <form
+                                onSubmit={handleOnSubmit}
+                                className="mt-40 shadow-md bg-white flex flex-col justify-center items-center"
+                            >
+                                <div className="form-group">
+                                    <label>Nombres:</label>
+                                    <input
+                                        type="text"
+                                        name="nombres"
+                                        className="form-control"
+                                        placeholder="nombres"
+                                        required
+                                        onChange={handleChangeForm}
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label>Apellidos:</label>
+                                    <input
+                                        type="text"
+                                        name="apellidos"
+                                        className="form-control"
+                                        placeholder="apellido"
+                                        required
+                                        onChange={handleChangeForm}
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label>Correo</label>
+                                    <input
+                                        type="email"
+                                        name="email"
+                                        className="form-control"
+                                        placeholder="ingrese su email"
+                                        required
+                                        onChange={handleChangeForm}
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label>Contraseña</label>
+                                    <input
+                                        type="password"
+                                        name="password"
+                                        className="form-control"
+                                        required
+                                        minLength="6"
+                                        onChange={handleChangeForm}
+                                    />
+                                </div>
+                                <div className="form-group text-center">
+                                    <button type="submit" className="btn btn-primary">Crear cuenta</button>
+                                </div>
+                                <p>Tienes cuenta? <Link to="/login" className="text-primary">Regresa al login</Link></p>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-                <div className="mt-10">
-                    <label className="block text-gray-800">Apellidos:</label>
-                    <input
-                        type="text"
-                        name="apellidos"
-                        className="py-1 px-9 rounded border shadow-sm"
-                        placeholder="apellido"
-                        required
-                        onChange={handleChangeForm}
-                    />
-                </div>
-                <div className="mt-10">
-                    <label className="block text-gray-800">Correo</label>
-                    <input
-                        type="email"
-                        name="email"
-                        className="py-1 px-9 rounded border shadow-sm"
-                        placeholder="ingrese su email"
-                        required
-                        onChange={handleChangeForm}
-                    />
-                </div>
-                <div className="mt-5">
-                    <label className="block text-gray-800">Contraseña</label>
-                    <input
-                        type="password"
-                        name="password"
-                        className="py-1 px-9 rounded border shadow-sm"
-                        required
-                        minLength="6"
-                        onChange={handleChangeForm}
-                    />
-                </div>
-                <button type="submit" className="mt-5 bg-blue-600 py-2 px-20 rounded text-white">Crear cuenta</button>
-                <Link to="/login" className="text-blue-500 hover:text-blue-800">Regresar al login</Link>
-            </form>
+            </div>
+            <Footer />
         </div>
     )
 }

@@ -8,10 +8,11 @@ import 'react-toastify/dist/ReactToastify.css';
 //paginacion
 import Pagination from "react-js-pagination";
 import './pagination.css';
-
+//importando componentes
 import FormConsultas from './formConsultas'
 import TableRegistrosConsultas from './tableRegistros';
 import Buscar from './Buscar'
+import Footer from '../../footer';
 
 //funcion que controla las funciones de consultas
 const PageConsultas = () => {
@@ -99,23 +100,23 @@ const PageConsultas = () => {
         }
     }
     //buscando doctores
-    const [searchDoctor, setSearchDoctor ] = useState('');
+    const [searchDoctor, setSearchDoctor] = useState('');
     const [doctor, setDoctor] = useState([]);
     const [ocultarTablaD, setocultarTablaD] = useState(false);
     const handleSearchDoctor = (e) => {
         setSearchDoctor(e.target.value);
-        if(searchDoctor==''){
+        if (searchDoctor == '') {
             setDoctor([]);
-            setConsulta({...consulta, email_doctor: ''})
+            setConsulta({ ...consulta, email_doctor: '' })
             setocultarTablaD(false);
-        }else{
+        } else {
             db.firestore().collection('usuarios').where("apellidos", "==", e.target.value).get()
-            .then((resultado) => {
-                resultado.forEach((doc) => {
-                    setDoctor({...doc.data()})
-                    setConsulta({...consulta, email_doctor: doc.data().email})
-                })
-            }).catch((error)=>{console.log(error)});
+                .then((resultado) => {
+                    resultado.forEach((doc) => {
+                        setDoctor({ ...doc.data() })
+                        setConsulta({ ...consulta, email_doctor: doc.data().email })
+                    })
+                }).catch((error) => { console.log(error) });
             setocultarTablaD(true);
         }
     }
@@ -175,48 +176,57 @@ const PageConsultas = () => {
     //
     //render de la pagina
     return (
-        <div className="grid grid-rows-3 grid-flow-col gap-4 pt-3">
-            {/** formulario */}
-            <div className="row-span-3">
-                <div className="py-1 px-10">
-                    <ToastContainer />
-                    {/** buscando pacientes */}
-                    <Buscar
-                        searchPaciente={searchPaciente}
-                        handleSearchPaciente={handleSearchPaciente}
-                        handleSearchDoctor={handleSearchDoctor}
-                        ocultarTablaP={ocultarTablaP}
-                        ocultarTablaD={ocultarTablaD}
-                        paciente={paciente}
-                        doctor= {doctor}
+        <div>
+            <div className="d-sm-flex align-items-center justify-content-between mb-4 p-3 text-dark" style={{ backgroundColor: "#BFCDE3" }}>
+                <h1 className="h3 mb-0 text-gray-800">Consultas</h1>
+                <p className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Hora: {f.getHours()}:{f.getMinutes()}</p>
+            </div>
+            <div className="row container">
+                {/** formulario */}
+                <div className="col">
+                    <div className="card">
+                        <div className="card-body">
+                            <ToastContainer />
+                            {/** buscando pacientes */}
+                            <Buscar
+                                searchPaciente={searchPaciente}
+                                handleSearchPaciente={handleSearchPaciente}
+                                handleSearchDoctor={handleSearchDoctor}
+                                ocultarTablaP={ocultarTablaP}
+                                ocultarTablaD={ocultarTablaD}
+                                paciente={paciente}
+                                doctor={doctor}
+                            />
+                            {/** formulario para registrar consultas en la base */}
+                            <FormConsultas
+                                handleSubmit={handleSubmit}
+                                fechaActual={fechaActual}
+                                consulta={consulta}
+                                handleChange={handleChange}
+                            />
+                        </div>
+                    </div>
+                </div>
+                {/** table de registros */}
+                <div className="col">
+                    <TableRegistrosConsultas
+                        currentConsultas={currentConsultas}
+                        handleUpdateConsulta={handleUpdateConsulta}
+                        handleDeleteConsulta={handleDeleteConsulta}
                     />
-                    {/** formulario para registrar consultas en la base */}
-                    <FormConsultas
-                        handleSubmit={handleSubmit}
-                        fechaActual={fechaActual}
-                        consulta={consulta}
-                        handleChange={handleChange}
-                    />
+                    {
+                        consultasRegistros.length !== 0 &&
+                        <Pagination
+                            activePage={activePage}
+                            itemsCountPerPage={3}
+                            totalItemsCount={consultasRegistros.length}
+                            pageRangeDisplayed={2}
+                            onChange={handlePageChange}
+                        />
+                    }
                 </div>
             </div>
-            {/** table de registros */}
-            <div className="row-span-3">
-                <TableRegistrosConsultas
-                    currentConsultas={currentConsultas}
-                    handleUpdateConsulta={handleUpdateConsulta}
-                    handleDeleteConsulta={handleDeleteConsulta}
-                />
-                {
-                    consultasRegistros.length !== 0 &&
-                    <Pagination
-                        activePage={activePage}
-                        itemsCountPerPage={3}
-                        totalItemsCount={consultasRegistros.length}
-                        pageRangeDisplayed={2}
-                        onChange={handlePageChange}
-                    />
-                }
-            </div>
+            <Footer />
         </div>
     )
 }

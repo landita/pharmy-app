@@ -1,7 +1,7 @@
 import React from 'react';
 
 //formulario de consultas
-const Form = ({ handleSubmit, fechaActual, consulta, handleChange }) => {
+const Form = ({ handleSubmit, fechaActual, consulta, handleChange, handleCancel }) => {
     return (
         <div>
             {/** formulario para registrar consultas en la base */}
@@ -54,6 +54,7 @@ const Form = ({ handleSubmit, fechaActual, consulta, handleChange }) => {
                     />
                 </div>
                 <button type="submit" className="btn btn-primary">Guardar registro</button>
+                <button type="button" className="btn btn-warning" onClick={handleCancel}>Cancelar</button>
             </form>
         </div>
     )

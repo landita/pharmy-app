@@ -75,6 +75,10 @@ const PacientesComponent = () => {
         notify();
     }
 
+    const handleCancel = (e) => {
+        setformPaciente(initFormValues);
+    }
+
     return (
         <div>
             <div className="d-sm-flex align-items-center justify-content-between mb-4 p-3 text-dark" style={{ backgroundColor: "#BFCDE3" }}>
@@ -151,6 +155,7 @@ const PacientesComponent = () => {
                                 </div>
                                 <br />
                                 <button type="submit" className="btn btn-primary">Guardar informacion</button>
+                                <button type="button" className="btn btn-warning" onClick={handleCancel}>Cancelar</button>
                             </form>
                         </div>
                     </div>

@@ -1,9 +1,13 @@
 import React from 'react';
 
 //tabla de registro de consultas
-const Table = ({ currentConsultas, handleUpdateConsulta, handleDeleteConsulta }) => {
+const Table = ({ currentConsultas, handleUpdateConsulta, handleDeleteConsulta, handleToday, allortoday }) => {
     return (
         <div className="p-3">
+            <div className="btn-group btn-group-toggle">
+                <button className="btn btn-light active" type="radio" name="options" onClick={handleToday}>Hoy</button>
+                <button className="btn btn-light active" type="radio" name="options" onClick={handleToday}>Todos</button>
+            </div>
             <table className="table table-hover">
                 <thead>
                     <tr className="bg-primary">
@@ -33,6 +37,7 @@ const Table = ({ currentConsultas, handleUpdateConsulta, handleDeleteConsulta })
                     ))}
                 </tbody>
             </table>
+            <p>Mostrando: {allortoday}</p>
         </div>
     )
 }

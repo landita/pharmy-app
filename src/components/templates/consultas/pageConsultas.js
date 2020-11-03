@@ -26,9 +26,16 @@ const PageConsultas = () => {
     const [consultasRegistros, setConsultasRegistros] = useState([]);
     //tomando consultas
     const handleToday = async (e) => {
+        var dia = '';
+        //validando si la fecha es menor a 10
+        if (f.getDate() < 10) {
+            dia = `${'0' + f.getDate()}`
+        }else{
+            dia = `${f.getDate()}`
+        }
         setAllorToday(e.target.textContent);
         if (e.target.textContent == 'Hoy') {
-            db.firestore().collection('consultas').where("fecha", "==", `${f.getFullYear()}-${f.getMonth() + 1}-${f.getDate()}`)
+            db.firestore().collection('consultas').where("fecha", "==", `${f.getFullYear()}-${f.getMonth() + 1}-${dia}`)
                 .onSnapshot((consultas) => {
                     const data = [];
                     consultas.forEach(doc => {
@@ -163,8 +170,8 @@ const PageConsultas = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         //guardando los datos en firebase
-        if (consulta.id_paciente == '') {
-            toast.error("No se ha buscado paciente");
+        if (consulta.id_paciente == '' || consulta.email_doctor == '') {
+            toast.error("No se ha buscado seleccionado paciente o doctor");
         } else {
             if (idConsulta) {
                 db.firestore().collection('consultas').doc(idConsulta).set(consulta);

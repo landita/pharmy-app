@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 //tabla de registro de consultas
 const Table = ({ currentConsultas, handleUpdateConsulta, handleDeleteConsulta, handleToday, allortoday }) => {
@@ -31,9 +32,9 @@ const Table = ({ currentConsultas, handleUpdateConsulta, handleDeleteConsulta, h
                                 <button
                                     onClick={handleDeleteConsulta}
                                     className="btn btn-danger">Eliminar</button>
-                                <button
-
-                                    className="btn btn-info">Pdf</button>
+                                <Link
+                                    to={`/pdf/${datos.id}`}
+                                    className="btn btn-info">Pdf</Link>
                             </th>
                         </tr>
                     ))}

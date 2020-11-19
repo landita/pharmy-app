@@ -17,6 +17,7 @@ import PerfilComponent from './auth/perfil';
 import UsuarioComponent from './auth/usuarios';
 import InicioComponent from './inicio';
 import RecuperarComponent from './auth/resetPassword';
+import PdfConsultas from './pdf/PdfPage';
 
 const Navbar = () => {
 
@@ -125,6 +126,7 @@ const Navbar = () => {
                                                 <Route path="/pacientes" component={PacientesComponent} exact />
                                                 <Route path="/perfil" component={PerfilComponent} exact />
                                                 <Route path="/usuarios" component={UsuarioComponent} exact />
+                                                <Route path="/pdf/:id" component={PdfConsultas} exact />
                                                 <Redirect from="/" to="/inicio" />
                                             </Switch>
                                         }

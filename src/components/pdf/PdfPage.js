@@ -17,13 +17,12 @@ const PdfConsultas = () => {
         db.firestore().collection('consultas').doc(id)
             .onSnapshot(respuesta => {
                 setConsulta({...respuesta.data()});
-                console.log(respuesta.data());
             }
             );
     }, [])
 
     return (
-        <PDFViewer style={{ width: 100 + "%", height: 800 }}>
+        <PDFViewer style={{ width: 100 + "%", height: 600 }}>
             <MyDocument consulta={consulta} />
         </PDFViewer>
     )

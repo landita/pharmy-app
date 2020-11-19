@@ -23,8 +23,11 @@ const styles = StyleSheet.create({
 
 // Create Document Component
 const MyDocument = ({ consulta }) => (
-    <Document>
+    <Document title="consulta">
         <Page size="A4" style={styles.page}>
+            <View style={styles.container}>
+                <Image src={Multiclinica} style={styles.image} />
+            </View>
             <View style={styles.container}>
                 <View style={styles.section}>
                     <Text>Nombre:</Text>
@@ -63,6 +66,7 @@ const MyDocument = ({ consulta }) => (
                 </View>
                 <View style={styles.section}>
                     <Text>{consulta.fecha}</Text>
+                    <Text>{consulta.hora}</Text>
                 </View>
             </View>
         </Page>

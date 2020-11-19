@@ -10,7 +10,11 @@ const styles = StyleSheet.create({
     section: {
         margin: 10,
         padding: 10,
-        flexGrow: 1
+        flexGrow: 1,
+        margin: 10,
+        padding: 10,
+        width: 50+'%',
+        right: 10
     },
     container: {
         flexDirection: 'row',
@@ -34,14 +38,6 @@ const MyDocument = ({ consulta }) => (
                 </View>
                 <View style={styles.section}>
                     <Text>{consulta.nombre_paciente}</Text>
-                </View>
-            </View>
-            <View style={styles.container}>
-                <View style={styles.section}>
-                    <Text>Recomendaciones:</Text>
-                </View>
-                <View style={styles.section}>
-                    <Text>{consulta.recomendaciones}</Text>
                 </View>
             </View>
             <View style={styles.container}>

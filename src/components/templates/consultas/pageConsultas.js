@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 //importando firebase
 import 'firebase/firestore';
 import { useFirebaseApp } from 'reactfire';
@@ -20,20 +20,39 @@ const PageConsultas = () => {
     const db = useFirebaseApp();
     //const user = useUser();
     const f = new Date();
+    //mostrando todos los registros o solo los diarios
+    const [allortoday, setAllorToday] = useState('');
     //estado de consultas
     const [consultasRegistros, setConsultasRegistros] = useState([]);
     //tomando consultas
-    const handleToday = async () => {
-        db.firestore().collection('consultas').where("fecha", "==", `${f.getFullYear()}-${f.getMonth() + 1}-${f.getDate()}`)
-            .onSnapshot((consultas) => {
+    const handleToday = async (e) => {
+        var dia = '';
+        //validando si la fecha es menor a 10
+        if (f.getDate() < 10) {
+            dia = `${'0' + f.getDate()}`
+        }else{
+            dia = `${f.getDate()}`
+        }
+        setAllorToday(e.target.textContent);
+        if (e.target.textContent == 'Hoy') {
+            db.firestore().collection('consultas').where("fecha", "==", `${f.getFullYear()}-${f.getMonth() + 1}-${dia}`)
+                .onSnapshot((consultas) => {
+                    const data = [];
+                    consultas.forEach(doc => {
+                        data.push({ ...doc.data(), id: doc.id })
+                    })
+                    setConsultasRegistros(data);
+                })
+        } else if (e.target.textContent == 'Todos') {
+            db.firestore().collection('consultas').onSnapshot((consultas) => {
                 const data = [];
                 consultas.forEach(doc => {
                     data.push({ ...doc.data(), id: doc.id })
                 })
                 setConsultasRegistros(data);
             })
+        }
     }
-    useEffect(() => { handleToday(); }, [])
     // paginacion
     const todosPerPage = 6;
     const [activePage, setCurrentPage] = useState(1);
@@ -151,8 +170,8 @@ const PageConsultas = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         //guardando los datos en firebase
-        if (consulta.id_paciente == '') {
-            toast.error("No se ha buscado paciente");
+        if (consulta.id_paciente == '' || consulta.email_doctor == '') {
+            toast.error("No se ha buscado seleccionado paciente o doctor");
         } else {
             if (idConsulta) {
                 db.firestore().collection('consultas').doc(idConsulta).set(consulta);
@@ -173,7 +192,10 @@ const PageConsultas = () => {
         setDoctor([]);
         setSearchDoctor('');
     }
-    //
+    const handleCancel = (e) => {
+        e.preventDefault();
+        setConsulta(initConsulta);
+    }
     //render de la pagina
     return (
         <div>
@@ -199,6 +221,7 @@ const PageConsultas = () => {
                             />
                             {/** formulario para registrar consultas en la base */}
                             <FormConsultas
+                                handleCancel={handleCancel}
                                 handleSubmit={handleSubmit}
                                 fechaActual={fechaActual}
                                 consulta={consulta}
@@ -210,6 +233,8 @@ const PageConsultas = () => {
                 {/** table de registros */}
                 <div className="col">
                     <TableRegistrosConsultas
+                        allortoday={allortoday}
+                        handleToday={handleToday}
                         currentConsultas={currentConsultas}
                         handleUpdateConsulta={handleUpdateConsulta}
                         handleDeleteConsulta={handleDeleteConsulta}

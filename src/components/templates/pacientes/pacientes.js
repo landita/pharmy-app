@@ -58,7 +58,10 @@ const PacientesComponent = () => {
     const handleOnClickDeletePaciente = (e) => {
         e.preventDefault();
         const id = e.target.parentElement.parentElement.children[0].textContent;
-        if (window.confirm('esta seguro de eliminar este paciente?')) db.firestore().collection('pacientes').doc(id).delete();
+        if (window.confirm('esta seguro de eliminar este paciente?')) {
+            db.firestore().collection('pacientes').doc(id).delete()
+            toast.error("Paciente eliminado");
+        };
     }
 
     const handleSubmit = (e) => {
@@ -73,6 +76,10 @@ const PacientesComponent = () => {
         };
         setformPaciente(initFormValues);
         notify();
+    }
+
+    const handleCancel = (e) => {
+        setformPaciente(initFormValues);
     }
 
     return (
@@ -151,6 +158,7 @@ const PacientesComponent = () => {
                                 </div>
                                 <br />
                                 <button type="submit" className="btn btn-primary">Guardar informacion</button>
+                                <button type="button" className="btn btn-warning" onClick={handleCancel}>Cancelar</button>
                             </form>
                         </div>
                     </div>

@@ -17,6 +17,7 @@ import PerfilComponent from './auth/perfil';
 import UsuarioComponent from './auth/usuarios';
 import InicioComponent from './inicio';
 import RecuperarComponent from './auth/resetPassword';
+import PdfConsultas from './pdf/PdfPage';
 
 const Navbar = () => {
 
@@ -59,7 +60,7 @@ const Navbar = () => {
         handleRol();
     })
     //eventos
-    const handleOnClickToggleDesktop = () => setToggle(!toggle);
+    //const handleOnClickToggleDesktop = () => setToggle(!toggle);
 
     return (
         <Router>
@@ -75,11 +76,10 @@ const Navbar = () => {
                                 {/**navbar de la pagina */}
                                 <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
                                     <Link className="navbar-brand" to="/">pharmy-app</Link>
-                                    <button className="navbar-toggler" data-toggle="collapse" onClick={handleScreenMin}>
+                                    <button className="navbar-toggler" data-toggle="collapse" data-target="#menu">
                                         <span className="navbar-toggler-icon"></span>
                                     </button>
-                                    <div className={`navbar-collapse`}
-                                        hidden={menu == false && menu2 == false}>
+                                    <div className="collapse  navbar-collapse" id="menu">
                                         <ul className="navbar-nav mr-auto">
                                             <li className="nav-item active">
                                                 <Link to="/consultas" className="nav-link">
@@ -102,10 +102,10 @@ const Navbar = () => {
                                         <div className="dropdown">
                                             <button className="btn btn-light"
                                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                                                onClick={handleOnClickToggleDesktop}>
+                                                >
                                                 <div>{user.email}</div>
                                             </button>
-                                            <div className={`${toggle ? 'dropdown-menu' : ''}`}>
+                                            <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                 <Link to="/perfil" className="dropdown-item">Perfil</Link>
                                                 <p
                                                     onClick={handleOnClickLogout}
@@ -125,6 +125,7 @@ const Navbar = () => {
                                                 <Route path="/pacientes" component={PacientesComponent} exact />
                                                 <Route path="/perfil" component={PerfilComponent} exact />
                                                 <Route path="/usuarios" component={UsuarioComponent} exact />
+                                                <Route path="/pdf/:id" component={PdfConsultas} exact />
                                                 <Redirect from="/" to="/inicio" />
                                             </Switch>
                                         }

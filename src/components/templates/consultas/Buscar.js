@@ -6,7 +6,7 @@ const Buscar = ({ searchPaciente, handleSearchPaciente, ocultarTablaP, paciente,
         <div className="py-3">
             <div>
                 <div className="form-group">
-                    <label>buscar paciente</label>
+                    <label>Buscar paciente</label>
                     <input
                         value={searchPaciente}
                         onChange={handleSearchPaciente}
@@ -35,7 +35,7 @@ const Buscar = ({ searchPaciente, handleSearchPaciente, ocultarTablaP, paciente,
             {/** buscando doctor */}
             <div>
                 <div className="form-group">
-                    <label>buscar Doctor</label>
+                    <label>Buscar Doctor</label>
                     <input
                         className="form-control"
                         onChange={handleSearchDoctor}

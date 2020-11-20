@@ -24,8 +24,8 @@ const Recuperar = () => {
             db.auth().sendPasswordResetEmail(email).then(() => {
                 toast.success("Correo enviado, ve y restaura tu contraseña");
                 setEmail('');
-            }).catch((error) => {
-                console.log(error);
+            }).catch(() => {
+                toast.error("Correo no registrado");
             })
         } else {
             toast.error("Ingrese su correo");

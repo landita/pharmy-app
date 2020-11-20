@@ -6,6 +6,8 @@ import * as firebase from 'firebase/app';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Footer from '../footer';
+//importando imagen
+import GoogleIcon from '../../assets/googlelogo.png';
 
 
 const Registro = ({props}) => {
@@ -135,7 +137,7 @@ const Registro = ({props}) => {
                                                 className="btn btn-outline-secondary"
                                                 onClick={handleOnClickGoogleAuth}
                                             >
-                                                <img className="inline mr-2" src="https://img.icons8.com/color/452/google-logo.png" height="20px" width="20px" />
+                                                <img className="inline mr-2" src={GoogleIcon} height="20px" width="20px" />
                                             Iniciar sesion con google
                                             </button>
                                         </div>

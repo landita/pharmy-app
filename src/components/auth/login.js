@@ -4,6 +4,12 @@ import { useFirebaseApp } from 'reactfire';
 import 'firebase/auth';
 import * as firebase from 'firebase/app';
 import Footer from '../footer';
+//alertas
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+//importando imagen
+import GoogleIcon from '../../assets/googlelogo.png';
+
 const LoginComponent = (props) => {
 
     //configuracion inicial
@@ -21,7 +27,9 @@ const LoginComponent = (props) => {
         event.preventDefault();
         await db.auth().signInWithEmailAndPassword(formValues.email, formValues.password).then(reponse => {
             props.history.push('/consultas');
-        }).catch(error => console.log(error));
+        }).catch(() => {
+            toast.error("Credenciales incorrectas");
+        });
     };
     const handleOnClickGoogleAuth = async (event) => {
         event.preventDefault();
@@ -34,6 +42,7 @@ const LoginComponent = (props) => {
 
     return (
         <div>
+            <ToastContainer />
             <div className="container h-100">
                 <div className="py-5">
                     <div className="row justify-content-center h-100">
@@ -79,7 +88,7 @@ const LoginComponent = (props) => {
                                                 className="btn btn-outline-secondary"
                                                 onClick={handleOnClickGoogleAuth}
                                             >
-                                                <img className="inline mr-2" src="https://img.icons8.com/color/452/google-logo.png" height="20px" width="20px" />
+                                                <img className="inline mr-2" src={GoogleIcon} height="20px" width="20px" />
                             Iniciar sesion con google
                             </button>
                                         </div>

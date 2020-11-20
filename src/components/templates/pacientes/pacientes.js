@@ -58,7 +58,10 @@ const PacientesComponent = () => {
     const handleOnClickDeletePaciente = (e) => {
         e.preventDefault();
         const id = e.target.parentElement.parentElement.children[0].textContent;
-        if (window.confirm('esta seguro de eliminar este paciente?')) db.firestore().collection('pacientes').doc(id).delete();
+        if (window.confirm('esta seguro de eliminar este paciente?')) {
+            db.firestore().collection('pacientes').doc(id).delete()
+            toast.error("Paciente eliminado");
+        };
     }
 
     const handleSubmit = (e) => {
